@@ -1,3 +1,8 @@
+const veryLightGray  = "#E8E8E8";
+const wonBackground  = "#329a77";
+const wonColor       = "white";
+const lostBackground = "lightpink";
+const lostColor      = "maroon";
 
 const clubSeason1 = document.getElementById("club1-season");
 const clubName1 = document.getElementById("club1-name");
@@ -19,13 +24,25 @@ const hintCont1 = document.getElementById("hint1-content");
 const hintCont2 = document.getElementById("hint2-content");
 const hintCont3 = document.getElementById("hint3-content");
 
+const guessFields = new Array();
+guessFields[0] = document.getElementById("guess1-input");
+guessFields[1] = document.getElementById("guess2-input");
+guessFields[2] = document.getElementById("guess3-input");
+guessFields[3] = document.getElementById("guess4-input");
+guessFields[4] = document.getElementById("guess5-input");
+guessFields[5] = document.getElementById("guess6-input");
+
+const helpIcon  = document.getElementById("help-icon");
+const statsIcon = document.getElementById("stats-icon");
+
 var todayRow = getTodaysRow();
 gameId.textContent="#"+String(todayRow) +" "+ gameId.textContent;
 
-var attempts = 0;
+var attempts  = 0;
 var currGuess = 1;  
 var lastGuess ="";
-var wonFlag = 0;
+var wonFlag   = 0;
+var digited   = 0;
 
 var dat; 
 
@@ -35,47 +52,116 @@ fetch('lst.csv')
   	// Do something with your data  	
     var jsonDataParsed = JSON.parse(csvJSON(data));
     var todayData = jsonDataParsed[todayRow];    
-    dat = todayData;
-    console.log(dat.season1);
-    console.log(dat.club1);    
+    dat = todayData; 
     startGame(dat);
-    //drawSeasons(dat);
   });
 
 
 // --------------------------------------
 
+function getTodaysRow()
+{
+  var todayRow = 0;
+  return todayRow;
+}
+
 function startGame(dat)
 {
   
-  drawSeasons(dat); 
-  
-  /*
-  while(attempts<6)
-  {
-    // Code here
-    // wait for input
+  helpIcon.hidden=true;
+  statsIcon.hidden=true;
 
-    // if last input ok
-      // wonFlag = 1;
-      // break;
-    // else
-      // increase attempts and currGuess
-    if (attempts == 3) setHint1();
-    if (attempts == 4) setHint2();
-    if (attempts == 5) setHint3();
+  drawSeasons(dat); 
+  for (i=currGuess ; i<6 ; i++) 
+  {
+    guessFields[i].value="";
+    guessFields[i].disabled=true;
+    guessFields[i].style.backgroundColor = veryLightGray;
   }
 
-  if (!wonFlag)
+  // Everything else is handled in the callback of the "zero" input field
+  updateFieldZero(currGuess);  
+}
+
+// --------------------------------------
+
+function checkGuess()
+{
+  guessFields[0].value = guessFields[0].value.toUpperCase();
+  lastGuess = guessFields[0].value;
+  console.log(lastGuess);
+  console.log(dat.name);
+  console.log(lastGuess.toUpperCase()==dat.name.toUpperCase());
+  console.log(String(currGuess));
+
+  if (lastGuess.toUpperCase()==dat.name.toUpperCase())
   {
-    // TBD
+    wonFlag = 1;    
+    gameWon();
   }
   else
   {
-    // TBD
+    attempts++;
+    currGuess++;
+    if (currGuess == 4) setHint1();
+    if (currGuess == 5) setHint2();
+    if (currGuess == 6) setHint3();
+    if (currGuess>6)
+    {
+      gameOver();
+    }
+    else
+    {
+      updateFieldZero(currGuess);
+    }
   }
 
-  */
+};
+
+function gameWon()
+{
+  guessFields[0].disabled=true;
+  guessFields[0].style.backgroundColor=wonBackground;
+  guessFields[0].style.color=wonColor;
+  guessFields[0].style.fontWeight="bold";
+}
+
+function gameOver()
+{
+  guessFields[0].disabled=true;
+  guessFields[0].style.backgroundColor=lostColor;    
+  guessFields[0].style.color="lightgray";     
+}
+
+function updateFieldZero(currGuess)
+{
+  if (currGuess>1)
+  {
+    for (i=5;i>0;i--)
+    {
+      guessFields[i].value = guessFields[i-1].value      
+      if (guessFields[i].value!="")
+      {
+        guessFields[i].style.backgroundColor=lostBackground;    
+        guessFields[i].style.color=lostColor;       
+      } 
+    }
+  }
+
+  digited = 0;
+  guessFields[0].style.backgroundColor="white";
+  guessFields[0].style.color="lightgray";
+  guessFields[0].value = "GUESS " + currGuess + " OF 6";
+  guessFields[0].focus();  
+  guessFields[0].onkeydown = function(){
+    if (digited==0)
+    { 
+      guessFields[0].value="";
+      digited=1;
+      guessFields[0].style.color="black";
+    }
+  };
+  guessFields[0].onchange = checkGuess;  
 }
 
 function getFlagEmoji(countryCode) {
@@ -84,13 +170,6 @@ function getFlagEmoji(countryCode) {
     .split('')
     .map(char =>  127397 + char.charCodeAt());
   return String.fromCodePoint(...codePoints);
-}
-
-
-function getTodaysRow()
-{
-  var todayRow = 0;
-  return todayRow;
 }
 
 function drawSeasons(dat)
@@ -106,18 +185,15 @@ function drawSeasons(dat)
 
 function initHints()
 {
-  hint1.style.backgroundColor="#E8E8E8";
-  hint2.style.backgroundColor="#E8E8E8";
-  hint3.style.backgroundColor="#E8E8E8";
+  hint1.style.backgroundColor=veryLightGray;
+  hint2.style.backgroundColor=veryLightGray;
+  hint3.style.backgroundColor=veryLightGray;
   hintIcon1.textContent = String.fromCodePoint("0x1F4CB");
   hintIcon2.textContent = String.fromCodePoint("0x1F520");    
   hintIcon3.textContent = String.fromCodePoint("0x1F30D"); 
   hintCont1.textContent = "???";   
   hintCont2.textContent = "???";
   hintCont3.textContent = "???";
-  //setHint1(); // doesnt belong here - test only
-  //setHint2(); // doesnt belong here - test only
-  //setHint3(); // doesnt belong here - test only
 }
 
 function setHint1()
@@ -139,8 +215,6 @@ function setHint3()
   hintCont3.textContent = dat.country;
 }
 
-
-
 //var csv is the CSV file with headers
 function csvJSON(csv){
 
@@ -159,5 +233,3 @@ function csvJSON(csv){
     //return result; //JavaScript object
     return JSON.stringify(result); //JSON
   }
-
-

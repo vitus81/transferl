@@ -11,16 +11,24 @@
             text-align: center;
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
-        h1 {            
+        .h1 {            
             text-align: center;
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 32px;
+            font-size: 36px;                 
+            width:auto;  
         }
+        .topIcon {
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 24px;     
+            color:gray;             
+            width:50px;     
+        }        
         h4 {            
             text-align: center;
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 14px;
-            margin-top:-20px;
+            font-weight: normal;
+            font-size: 14px;            
+            margin-top:-2px;
             margin-bottom:-4px;
             color:gray;
         }        
@@ -73,7 +81,7 @@
         .guess-container {
             text-align: center;
             width: 350px;
-            margin-top:25px;
+            margin-top:15px;
         }    
         .guess-header {
             text-align: right;
@@ -83,19 +91,36 @@
             width:35px;
         }           
         .guess-input {
-            text-align: left;
-            font-size: 32px;
-            width:290px;
+            text-align: center;
+            font-size: 30px;
+            width:330px;
             min-height: 36px;
+            border-color:lightgray;
+            border-radius: 5px;
+            border-width: 0px;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }                
     </style>    
 </head>
 <body>
-
+    <center>
     <!--<canvas id="gameArea" width="350" height="600"></canvas> -->
     <div width="350" class = "game-container">
-        <h1>TRANSFERL<span style="color:red; font-size:14px; vertical-align: super;">alpha</span></h1>
-        <h4 id="game-id"></h4>
+        <table width="100%">
+            <tr>
+                <td class=topIcon id=help-icon>&#10068;</td>
+                <td class=h1>TRANSFERL<span style="color:red; font-size:14px; vertical-align: super;">alpha</span></td>
+                <td class=topIcon id=stats-icon>&#128202;</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <h4 id="game-id"></h4>
+                </td>
+            </tr>
+        </table>
+        
+        
         <hr width="350">
     
         <div width="350" class = "clubs-container">        
@@ -137,33 +162,34 @@
         <div width="350" class = "guess-container">
             <table  width="350">
                 <tr>
-                    <td class="guess-header" id="guess1-header">1</td>
+                    <!--<td class="guess-header" id="guess1-header">1</td>-->
                     <td><input class="guess-input" id="guess1-input"></td>
                 </tr>
                 <tr>
-                    <td class="guess-header" id="guess2-header">2</td>
+                    <!--<td class="guess-header" id="guess2-header">2</td>-->
                     <td><input class="guess-input" id="guess2-input"></td>
                 </tr>
                 <tr>
-                    <td class="guess-header" id="guess3-header">3</td>
+                    <!--<td class="guess-header" id="guess3-header">3</td>-->
                     <td><input class="guess-input" id="guess3-input"></td>
                 </tr>
                 <tr>
-                    <td class="guess-header" id="guess4-header">4</td>
+                    <!--<td class="guess-header" id="guess4-header">4</td>-->
                     <td><input class="guess-input" id="guess4-input"></td>
                 </tr>
                 <tr>
-                    <td class="guess-header" id="guess5-header">5</td>
+                    <!--<td class="guess-header" id="guess5-header">5</td>-->
                     <td><input class="guess-input" id="guess5-input"></td>
                 </tr>
                 <tr>
-                    <td class="guess-header" id="guess6-header">6</td>
+                    <!--<td class="guess-header" id="guess6-header">6</td>-->
                     <td><input class="guess-input" id="guess6-input"></td>
                 </tr>                                                            
             </table>
         
         </div>
     </div>
+    </center>
     <script src="index.js"></script>    
 </body>
 </html>
