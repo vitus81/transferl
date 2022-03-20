@@ -6,6 +6,9 @@ const lostBackground = "lightgray";//"lightpink";
 const lostColor      = "firebrick";//"maroon";
 
 // Get objects
+const clubContainer1 = document.getElementById("club1-container");
+const clubContainer2 = document.getElementById("club2-container");
+const clubContainer3 = document.getElementById("club3-container");
 const clubSeason1 = document.getElementById("club1-season");
 const clubName1 = document.getElementById("club1-name");
 const clubSeason2 = document.getElementById("club2-season");
@@ -138,6 +141,10 @@ function gameWon()
   gameOutcome.hidden=false;
   gameOutcome.textContent = "WELL DONE!";
   gameOutcome.style.color = wonBackground;
+
+  setHint1();
+  setHint2();
+  setHint3();
 }
 
 function gameOver()
@@ -195,43 +202,73 @@ function getFlagEmoji(countryCode) {
 
 function drawSeasons(dat)
 {
+  $("#club1-container").css('visibility','hidden');
+  $("#club2-container").css('visibility','hidden');
+  $("#club3-container").css('visibility','hidden');
+  $("#hint1-container").css('visibility','hidden');
+  $("#hint2-container").css('visibility','hidden');
+  $("#hint3-container").css('visibility','hidden');
 
-  clubSeason1.textContent = dat.season1;
-  clubName1.textContent = dat.club1;
-  clubSeason2.textContent = dat.season2;
-  clubName2.textContent = dat.club2;
-  clubSeason3.textContent = dat.season3;
-  clubName3.textContent = dat.club3; 
+  setTimeout( ()=>{ 
+    $("#club1-container").css('visibility','visible');
+    clubContainer1.classList.add('slide');
+    clubSeason1.textContent = dat.season1;
+    clubName1.textContent = dat.club1;
+  },500);
+  setTimeout( ()=>{ 
+    $("#club2-container").css('visibility','visible');
+    clubContainer2.classList.add('slide');
+    clubSeason2.textContent = dat.season2;
+    clubName2.textContent = dat.club2;
+  },1750);  
+  setTimeout( ()=>{ 
+    $("#club3-container").css('visibility','visible');
+    clubContainer3.classList.add('slide');
+    clubSeason3.textContent = dat.season3;
+    clubName3.textContent = dat.club3;
+  },3000);    
+
   initHints();
 }
 
 function initHints()
 {
+  $("#hint1-container").css('visibility','hidden');
+  $("#hint2-container").css('visibility','hidden');
+  $("#hint3-container").css('visibility','hidden');
+  
   hint1.style.backgroundColor=veryLightGray;
   hint2.style.backgroundColor=veryLightGray;
   hint3.style.backgroundColor=veryLightGray;
   hintIcon1.textContent = String.fromCodePoint("0x1F4CB");
   hintIcon2.textContent = String.fromCodePoint("0x1F520");    
   hintIcon3.textContent = String.fromCodePoint("0x1F30D"); 
-  hintCont1.textContent = "???";   
-  hintCont2.textContent = "???";
-  hintCont3.textContent = "???";
+  hintCont1.textContent = "";   
+  hintCont2.textContent = "";
+  hintCont3.textContent = "";
+  
 }
 
 function setHint1()
 {
+  $("#hint1-container").css('visibility','visible');
+  hint1.classList.add('fade');
   hint1.style.backgroundColor = clubSeason1.style.backgroundColor;
   hintCont1.textContent = dat.pos;
 }
 
 function setHint2()
 {
+  $("#hint2-container").css('visibility','visible');
+  hint2.classList.add('fade');
   hint2.style.backgroundColor = clubSeason2.style.backgroundColor;
   hintCont2.textContent = dat.letters;
 }
 
 function setHint3()
 {
+  $("#hint3-container").css('visibility','visible');
+  hint3.classList.add('fade');  
   hint3.style.backgroundColor = clubSeason3.style.backgroundColor;
   hintIcon3.textContent = getFlagEmoji(dat.countryCode); 
   hintCont3.textContent = dat.country;

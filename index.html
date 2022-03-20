@@ -48,19 +48,37 @@
             width: 350px;            
         }        
         .club-container {
-            background-color: mediumaquamarine;
-            min-height: 30px;
+            background-color: mediumaquamarine;            
+            height: 80px;
             vertical-align: top;
             border-radius: 10px;            
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
         }
+        #club1-container {
+            position: relative;
+            z-index: 3;
+        }
+        #club2-container {
+            position: relative;
+            z-index: 2;
+        }    
+        #club3-container {
+            position: relative;
+            z-index: 1;
+        }                
+        .club-container.slide {
+            animation: 1.0s linear slideIn;
+        }
         .hint-container {
             background-color: mediumaquamarine;
-            min-height: 30px;
+            height: 50px;
             font-size: 24px;
             border-radius: 10px;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
-        }        
+        }
+        .hint-container.fade {
+            animation: 0.5s linear fadeIn;
+        }                
         .clubSeason {
             font-weight: bold;
             font-size: 20px;
@@ -70,7 +88,7 @@
         .clubName {            
             font-size: 16px;
             margin-top:4px;
-            margin-bottom:4px;            
+            margin-bottom:4px;
         }      
         .hintIcon {
             font-weight: bold;
@@ -128,6 +146,32 @@
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             text-align: left;
         }
+        @keyframes slideIn {
+        0% {
+            opacity: 0;
+            transform: translateX(-100px);
+        }
+        50% {
+            opacity: 0.1;
+            transform: translateX(-50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+      }  
+      @keyframes fadeIn {
+        0% {
+            opacity: 0;            
+        }
+        50% {
+            opacity: 0.25;            
+        }
+        100% {
+            opacity: 1;            
+        }
+      }            
+
     </style>    
 </head>
 <body>
@@ -136,7 +180,7 @@
         <table width="100%">
             <tr>
                 <td class=topIcon id=help-icon>&#10068;</td>
-                <td class=h1>TRANSFERL<span style="color:red; font-size:14px; vertical-align: super;">alpha</span></td>
+                <td class=h1>TRANSFERL<span style="color:red; font-size:14px; vertical-align: super;">beta</span></td>
                 <td class=topIcon id=stats-icon>&#128202;</td>
             </tr>
             <tr>
@@ -238,7 +282,7 @@
     <script data-goatcounter="https://vitus.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
         
     <div id="dialog-help" title="How to play">
-        <p>You have <span style="font-weight: bold;">six attempts</span> to guess the last name of a football player.</p>
+        <p>You have <span style="font-weight: bold;">six attempts</span> to guess the last name (or nickname) of a football player.</p>
         <p>You know the clubs he played for during <span style="font-weight: bold;">three seasons</span> of his career.</p>
         <p>After the third, fourth and fifth failed attempt, you will receive some <span style="font-weight: bold;">additional hints</span>:<br>
         &#x1F4CB; Position (GK, DF, MF, FW)<br>
@@ -248,7 +292,7 @@
             &#x2705; Müller<br>
             &#x2705; Muller<br>
             &#x274C; <span style="text-decoration: line-through;">Mueller</span></p>
-        <p>A new footballer will be available every day!</p>
+        <p>When the <span style="color:red; font-size:14px;">beta</span> phase is over, a new footballer will be available every day!</p>
         <p style="font-style: italic;">Credits: this game was strongly inspired by <a target="_blank" href="https://www.nytimes.com/games/wordle/index.html">Wordle</a> and <a target="_blank" href="https://missing11.com/">Missing 11</a></p>
 
     </div>           
