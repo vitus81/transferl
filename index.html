@@ -100,7 +100,25 @@
             border-width: 0px;
             box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2);
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        }                
+        }      
+        #game-outcome {            
+            text-align: center;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 36px;                             
+            width:auto;  
+        }  
+        #game-solution {            
+            text-align: center;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 18px;                 
+            width:auto;  
+        }               
+        #game-more {
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: gray;
+            font-size: 18px;
+            font-size: 18px; 
+        }   
     </style>    
 </head>
 <body>
@@ -185,9 +203,25 @@
                     <!--<td class="guess-header" id="guess6-header">6</td>-->
                     <td><input class="guess-input" id="guess6-input"></td>
                 </tr>                                                            
-            </table>
-        
+            </table>        
         </div>
+
+        <div width="350" class = "footer-container">
+
+            <table  width="350">
+                <tr>
+                    <td id="game-outcome"></td>
+                </tr>
+                <tr>
+                    <td id="game-solution"></td>
+                </tr>
+                <tr>
+                    <td id="game-more"></td>
+                </tr>
+            </table>
+
+        </div>
+
     </div>
     </center>
     <script src="index.js"></script>    

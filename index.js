@@ -35,6 +35,10 @@ guessFields[5] = document.getElementById("guess6-input");
 const helpIcon  = document.getElementById("help-icon");
 const statsIcon = document.getElementById("stats-icon");
 
+const gameOutcome  = document.getElementById("game-outcome");
+const gameSolution = document.getElementById("game-solution");
+const gameMore     = document.getElementById("game-more");
+
 var todayRow = getTodaysRow();
 gameId.textContent="#"+String(todayRow) +" "+ gameId.textContent;
 
@@ -70,6 +74,10 @@ function startGame(dat)
   
   helpIcon.hidden=true;
   statsIcon.hidden=true;
+
+  gameOutcome.hidden = true;
+  gameSolution.hidden = true;
+  gameMore.hidden = true;
 
   drawSeasons(dat); 
   for (i=currGuess ; i<6 ; i++) 
@@ -124,13 +132,24 @@ function gameWon()
   guessFields[0].style.backgroundColor=wonBackground;
   guessFields[0].style.color=wonColor;
   guessFields[0].style.fontWeight="bold";
+
+  gameOutcome.hidden=false;
+  gameOutcome.textContent = "WELL DONE!";
+  gameOutcome.style.color = wonBackground;
 }
 
 function gameOver()
 {
   guessFields[0].disabled=true;
   guessFields[0].style.backgroundColor=lostColor;    
-  guessFields[0].style.color="lightgray";     
+  guessFields[0].style.color="lightgray";
+  
+  gameOutcome.hidden=false;
+  gameOutcome.textContent = "GAME OVER";
+  gameOutcome.style.color = lostColor;  
+
+  gameSolution.hidden=false;
+  gameSolution.textContent = "The answer was " + dat.name.toUpperCase();
 }
 
 function updateFieldZero(currGuess)
