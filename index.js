@@ -1,9 +1,11 @@
+// Color definitions
 const veryLightGray  = "#E8E8E8";
 const wonBackground  = "#329a77";
 const wonColor       = "white";
 const lostBackground = "lightgray";//"lightpink";
 const lostColor      = "firebrick";//"maroon";
 
+// Get objects
 const clubSeason1 = document.getElementById("club1-season");
 const clubName1 = document.getElementById("club1-name");
 const clubSeason2 = document.getElementById("club2-season");
@@ -39,17 +41,19 @@ const gameOutcome  = document.getElementById("game-outcome");
 const gameSolution = document.getElementById("game-solution");
 const gameMore     = document.getElementById("game-more");
 
+// Initialize the solution for today
 var todayRow = getTodaysRow();
 gameId.textContent="#"+String(todayRow) +" "+ gameId.textContent;
 
+// Initialize status variables
 var attempts  = 0;
 var currGuess = 1;  
 var lastGuess ="";
 var wonFlag   = 0;
 var digited   = 0;
-
 var dat; 
 
+// Fetch list of solutions and bootstrap game
 fetch('lst.csv')
   .then(response => response.text())
   .then(data => {
@@ -65,7 +69,7 @@ fetch('lst.csv')
 
 function getTodaysRow()
 {
-  var todayRow = 0;
+  var todayRow = 87; // TBD: calculate based on day zero
   return todayRow;
 }
 
@@ -98,10 +102,10 @@ function checkGuess()
   lastGuess = guessFields[0].value;
   console.log(lastGuess);
   console.log(dat.name);
-  console.log(lastGuess.toUpperCase()==dat.name.toUpperCase());
+  console.log(lastGuess.toUpperCase()==replaceUmlauts(dat.name).toUpperCase());
   console.log(String(currGuess));
 
-  if (lastGuess.toUpperCase()==dat.name.toUpperCase())
+  if (lastGuess.toUpperCase()==replaceUmlauts(dat.name).toUpperCase())
   {
     wonFlag = 1;    
     gameWon();
@@ -317,7 +321,7 @@ function csvJSON(csv){
   }
 
   $( function() {
-    $( "#dialog" ).dialog({
+    $( "#dialog-help" ).dialog({
       autoOpen: false,
       show: {
         effect: "blind",
@@ -329,6 +333,6 @@ function csvJSON(csv){
       }
     }); 
     $( "#help-icon" ).on( "click", function() {
-      $( "#dialog" ).dialog( "open" );
+      $( "#dialog-help" ).dialog( "open" );
     });
   } );

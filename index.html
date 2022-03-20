@@ -39,6 +39,9 @@
             vertical-align: top;
             text-align: center;
             width: 350px;
+            display:flex;
+            flex-direction: column;
+            align-items: center;
         }
         .clubs-container {
             text-align: center;
@@ -120,14 +123,16 @@
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             color: gray;
             font-size: 18px;
-            font-size: 18px; 
         }   
+        #dialog-help {
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-align: left;
+        }
     </style>    
 </head>
 <body>
-    <center>
-    <!--<canvas id="gameArea" width="350" height="600"></canvas> -->
-    <div width="350" class = "game-container">
+    <center>    
+    <div class = "game-container">
         <table width="100%">
             <tr>
                 <td class=topIcon id=help-icon>&#10068;</td>
@@ -226,15 +231,15 @@
         </div>
 
     </div>
-    </center>
+</center>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script src="index.js"></script>
     <script data-goatcounter="https://vitus.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
         
-    <div id="dialog" style="text-align: left;" title="How to play">
+    <div id="dialog-help" title="How to play">
         <p>You have <span style="font-weight: bold;">six attempts</span> to guess the last name of a football player.</p>
-        <p>You know the clubs he played for during three seasons of his career.</p>
+        <p>You know the clubs he played for during <span style="font-weight: bold;">three seasons</span> of his career.</p>
         <p>After the third, fourth and fifth failed attempt, you will receive some <span style="font-weight: bold;">additional hints</span>:<br>
         &#x1F4CB; Position (GK, DF, MF, FW)<br>
         &#x1F520; Number of letters in the name<br>
