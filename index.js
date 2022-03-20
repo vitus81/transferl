@@ -72,8 +72,7 @@ function getTodaysRow()
 function startGame(dat)
 {
   
-  //statsIcon.hidden=true;
-  statsIcon.textContent="";
+  statsIcon.textContent=""; // TO BE REMOVED
 
   gameOutcome.hidden = true;
   gameSolution.hidden = true;
@@ -182,11 +181,6 @@ function updateFieldZero(currGuess)
   guessFields[0].onchange = checkGuess;  
 }
 
-function showHelp()
-{
-  window.alert("Qui ti spiego\ntutto");
-}
-
 function getFlagEmoji(countryCode) {
   const codePoints = countryCode
     .toUpperCase()
@@ -197,12 +191,13 @@ function getFlagEmoji(countryCode) {
 
 function drawSeasons(dat)
 {
+
   clubSeason1.textContent = dat.season1;
   clubName1.textContent = dat.club1;
   clubSeason2.textContent = dat.season2;
   clubName2.textContent = dat.club2;
   clubSeason3.textContent = dat.season3;
-  clubName3.textContent = dat.club3;          
+  clubName3.textContent = dat.club3; 
   initHints();
 }
 
