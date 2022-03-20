@@ -1,8 +1,8 @@
 const veryLightGray  = "#E8E8E8";
 const wonBackground  = "#329a77";
 const wonColor       = "white";
-const lostBackground = "lightpink";
-const lostColor      = "maroon";
+const lostBackground = "lightgray";//"lightpink";
+const lostColor      = "firebrick";//"maroon";
 
 const clubSeason1 = document.getElementById("club1-season");
 const clubName1 = document.getElementById("club1-name");
@@ -72,8 +72,8 @@ function getTodaysRow()
 function startGame(dat)
 {
   
-  helpIcon.hidden=true;
-  statsIcon.hidden=true;
+  //statsIcon.hidden=true;
+  statsIcon.textContent="";
 
   gameOutcome.hidden = true;
   gameSolution.hidden = true;
@@ -95,7 +95,7 @@ function startGame(dat)
 
 function checkGuess()
 {
-  guessFields[0].value = guessFields[0].value.toUpperCase();
+  guessFields[0].value = replaceUmlauts(guessFields[0].value).toUpperCase();
   lastGuess = guessFields[0].value;
   console.log(lastGuess);
   console.log(dat.name);
@@ -131,7 +131,6 @@ function gameWon()
   guessFields[0].disabled=true;
   guessFields[0].style.backgroundColor=wonBackground;
   guessFields[0].style.color=wonColor;
-  guessFields[0].style.fontWeight="bold";
 
   gameOutcome.hidden=false;
   gameOutcome.textContent = "WELL DONE!";
@@ -141,8 +140,8 @@ function gameWon()
 function gameOver()
 {
   guessFields[0].disabled=true;
-  guessFields[0].style.backgroundColor=lostColor;    
-  guessFields[0].style.color="lightgray";
+  guessFields[0].style.backgroundColor=lostBackground;    
+  guessFields[0].style.color=lostColor;
   
   gameOutcome.hidden=false;
   gameOutcome.textContent = "GAME OVER";
@@ -181,6 +180,11 @@ function updateFieldZero(currGuess)
     }
   };
   guessFields[0].onchange = checkGuess;  
+}
+
+function showHelp()
+{
+  window.alert("Qui ti spiego\ntutto");
 }
 
 function getFlagEmoji(countryCode) {
@@ -252,3 +256,84 @@ function csvJSON(csv){
     //return result; //JavaScript object
     return JSON.stringify(result); //JSON
   }
+
+  function replaceUmlauts(str) {
+    return str    
+      .replace(/\u00c0/g, 'A')
+      .replace(/\u00c1/g, 'A')
+      .replace(/\u00c2/g, 'A')
+      .replace(/\u00c3/g, 'A')
+      .replace(/\u00c4/g, 'A')
+      .replace(/\u00c5/g, 'A')
+      .replace(/\u00c6/g, 'AE')
+      .replace(/\u00c7/g, 'C')
+      .replace(/\u00c8/g, 'E')
+      .replace(/\u00c9/g, 'E')
+      .replace(/\u00cA/g, 'E')
+      .replace(/\u00cB/g, 'E')
+      .replace(/\u00cc/g, 'I')
+      .replace(/\u00cd/g, 'I')
+      .replace(/\u00ce/g, 'I')
+      .replace(/\u00cf/g, 'I')
+      .replace(/\u00d0/g, 'DJ')
+      .replace(/\u00d1/g, 'N')
+      .replace(/\u00d2/g, 'O')
+      .replace(/\u00d3/g, 'O')
+      .replace(/\u00d4/g, 'O')
+      .replace(/\u00d5/g, 'O')
+      .replace(/\u00d6/g, 'O')
+      .replace(/\u00d8/g, 'O')
+      .replace(/\u00d9/g, 'U')
+      .replace(/\u00da/g, 'U')
+      .replace(/\u00db/g, 'U')
+      .replace(/\u00dc/g, 'U')
+      .replace(/\u00dd/g, 'Y')
+      .replace(/\u00df/g, 'ss')
+      .replace(/\u00e0/g, 'a')
+      .replace(/\u00e1/g, 'a')
+      .replace(/\u00e2/g, 'a')
+      .replace(/\u00e3/g, 'a')
+      .replace(/\u00e4/g, 'a')
+      .replace(/\u00e5/g, 'a')
+      .replace(/\u00e6/g, 'ae')
+      .replace(/\u00e7/g, 'c')
+      .replace(/\u00e8/g, 'e')
+      .replace(/\u00e9/g, 'e')
+      .replace(/\u00ea/g, 'e')
+      .replace(/\u00eb/g, 'e')
+      .replace(/\u00ec/g, 'i')
+      .replace(/\u00ed/g, 'i')
+      .replace(/\u00ee/g, 'i')
+      .replace(/\u00ef/g, 'i')
+      .replace(/\u00f0/g, 'dj')
+      .replace(/\u00f1/g, 'n')
+      .replace(/\u00f2/g, 'o')
+      .replace(/\u00f3/g, 'o')
+      .replace(/\u00f4/g, 'o')
+      .replace(/\u00f5/g, 'o')
+      .replace(/\u00f6/g, 'o')
+      .replace(/\u00f8/g, 'o')
+      .replace(/\u00f9/g, 'u')
+      .replace(/\u00fa/g, 'u')
+      .replace(/\u00fb/g, 'u')
+      .replace(/\u00fc/g, 'u')
+      .replace(/\u00fd/g, 'y')
+      .replace(/\u00ff/g, 'y')
+  }
+
+  $( function() {
+    $( "#dialog" ).dialog({
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "blind",
+        duration: 1000
+      }
+    }); 
+    $( "#help-icon" ).on( "click", function() {
+      $( "#dialog" ).dialog( "open" );
+    });
+  } );

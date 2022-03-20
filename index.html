@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transferl</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">    
     <style>
         body{ 
             background: rgb(255, 255, 255);
@@ -105,6 +107,7 @@
             text-align: center;
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             font-size: 36px;                             
+            font-weight: bold;
             width:auto;  
         }  
         #game-solution {            
@@ -224,6 +227,25 @@
 
     </div>
     </center>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script src="index.js"></script>    
+        
+    <div id="dialog" style="text-align: left;" title="How to play">
+        <p>You have <span style="font-weight: bold;">six attempts</span> to guess the last name of a football player.</p>
+        <p>You know the clubs he played for during three seasons of his career.</p>
+        <p>After the third, fourth and fifth failed attempt, you will receive some <span style="font-weight: bold;">additional hints</span>:<br>
+        &#x1F4CB; Position (GK, DF, MF, FW)<br>
+        &#x1F520; Number of letters in the name<br>
+        &#x1F30D; Nationality</p>
+        <p><span style="font-weight: bold;">Note for German names:</span><br>
+            &#x2705; Müller<br>
+            &#x2705; Muller<br>
+            &#x274C; <span style="text-decoration: line-through;">Mueller</span></p>
+        <p>A new footballer will be available every day!</p>
+        <p style="font-style: italic;">Credits: this game was strongly inspired by <a target="_blank" href="https://www.nytimes.com/games/wordle/index.html">Wordle</a> and <a target="_blank" href="https://missing11.com/">Missing 11</a></p>
+
+    </div>           
+
 </body>
 </html>
