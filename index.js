@@ -69,7 +69,7 @@ fetch('lst.csv')
 
 function getTodaysRow()
 {
-  var todayRow = 87; // TBD: calculate based on day zero
+  var todayRow = 0; // TBD: calculate based on day zero
   return todayRow;
 }
 
