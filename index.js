@@ -5,6 +5,13 @@ const wonColor       = "white";
 const lostBackground = "lightgray";//"lightpink";
 const lostColor      = "firebrick";//"maroon";
 
+// Time definitioms
+var startDay   = 21;
+var startMonth = 3-1; // month starts with 0 --> subtract 1!
+var startYear  = 2022;
+var UPDATE_RATE = 900;        // TBD: switch to 86400
+var fileName = "lstBeta.csv"; // TBD: switch to lts.csv
+
 // Get objects
 const clubContainer1 = document.getElementById("club1-container");
 const clubContainer2 = document.getElementById("club2-container");
@@ -43,10 +50,11 @@ const statsIcon = document.getElementById("stats-icon");
 const gameOutcome  = document.getElementById("game-outcome");
 const gameSolution = document.getElementById("game-solution");
 const gameMore     = document.getElementById("game-more");
+const shareLink    = document.getElementById("share-link");
 
 // Initialize the solution for today
 var todayRow = getTodaysRow();
-gameId.textContent="#"+String(todayRow) +" "+ gameId.textContent;
+gameId.textContent = "#" + String(todayRow) + " " + gameId.textContent;
 
 // Initialize status variables
 var attempts  = 0;
@@ -57,7 +65,7 @@ var digited   = 0;
 var dat; 
 
 // Fetch list of solutions and bootstrap game
-fetch('lst.csv')
+fetch(fileName)
   .then(response => response.text())
   .then(data => {
   	// Do something with your data  	
@@ -67,23 +75,27 @@ fetch('lst.csv')
     startGame(dat);
   });
 
-
 // --------------------------------------
 
 function getTodaysRow()
-{
-  var todayRow = 0; // TBD: calculate based on day zero
+{  
+  var currentTimestamp = (Date.now()/1000).toFixed(0); 
+  var startTimestamp = new Date(startYear, startMonth, startDay);
+  startTimestamp = (startTimestamp.getTime()/1000).toFixed(0);
+  var delta = currentTimestamp - startTimestamp;
+  console.log(Math.floor(delta/UPDATE_RATE));
+  
+  todayRow = (Math.floor(delta/UPDATE_RATE)) % 10; // TBD: remove modulo
   return todayRow;
 }
 
 function startGame(dat)
 {
-  
   statsIcon.textContent=""; // TO BE REMOVED
-
-  gameOutcome.hidden = true;
-  gameSolution.hidden = true;
-  gameMore.hidden = true;
+  
+  $("#game-outcome").css('visibility','hidden');
+  $("#game-solution").css('visibility','hidden');
+  $("#game-more").css('visibility','visible');
 
   drawSeasons(dat); 
   for (i=currGuess ; i<6 ; i++) 
@@ -103,10 +115,6 @@ function checkGuess()
 {
   guessFields[0].value = replaceUmlauts(guessFields[0].value).toUpperCase();
   lastGuess = guessFields[0].value;
-  console.log(lastGuess);
-  console.log(dat.name);
-  console.log(lastGuess.toUpperCase()==replaceUmlauts(dat.name).toUpperCase());
-  console.log(String(currGuess));
 
   if (lastGuess.toUpperCase()==replaceUmlauts(dat.name).toUpperCase())
   {
@@ -138,13 +146,15 @@ function gameWon()
   guessFields[0].style.backgroundColor=wonBackground;
   guessFields[0].style.color=wonColor;
 
-  gameOutcome.hidden=false;
+  $("#game-outcome").css('visibility','visible');
   gameOutcome.textContent = "WELL DONE!";
   gameOutcome.style.color = wonBackground;
 
   setHint1();
   setHint2();
   setHint3();
+
+  gameEnd();
 }
 
 function gameOver()
@@ -153,12 +163,49 @@ function gameOver()
   guessFields[0].style.backgroundColor=lostBackground;    
   guessFields[0].style.color=lostColor;
   
-  gameOutcome.hidden=false;
+  $("#game-outcome").css('visibility','visible');
   gameOutcome.textContent = "GAME OVER";
   gameOutcome.style.color = lostColor;  
 
-  gameSolution.hidden=false;
+  $("#game-solution").css('visibility','visible');
   gameSolution.textContent = "The answer was " + dat.name.toUpperCase();
+
+  gameEnd();
+}
+
+function gameEnd()
+{
+  // Prepare string for sharing
+  var shareString="";
+  var resChar = (wonFlag==1 ? String(currGuess) : "X");
+  shareString =  "Transferl #"+ String(todayRow) + " " + resChar + "/6\n\n";
+  shareString += "1️⃣2️⃣3️⃣"+String.fromCodePoint("0x1F4CB")+String.fromCodePoint("0x1F520")+String.fromCodePoint("0x1F30D")+"\n";  
+  for (i=1 ; i<currGuess; i++) shareString += String.fromCodePoint("0x2b1b");
+  if (wonFlag) shareString += String.fromCodePoint("0x1f7e9");
+  for (i=currGuess+1 ; i<7; i++) shareString += String.fromCodePoint("0x25fd");
+  console.log(shareString);
+  shareLink.textContent="Share";
+  shareLink.onclick = function(){
+    copyStringToClipboard (shareString);
+    alert("Your score was copied to the clipboard.\nYou can paste it in your apps!");
+  };
+}
+
+function copyStringToClipboard (str) {
+  // Create new element
+  var el = document.createElement('textarea');
+  // Set value (string to be copied)
+  el.value = str;
+  // Set non-editable to avoid focus and move outside of view
+  el.setAttribute('readonly', '');
+  el.style = {position: 'absolute', left: '-9999px'};
+  document.body.appendChild(el);
+  // Select text inside element
+  el.select();
+  // Copy text to clipboard
+  document.execCommand('copy');
+  // Remove temporary element
+  document.body.removeChild(el);
 }
 
 function updateFieldZero(currGuess)
@@ -243,9 +290,9 @@ function initHints()
   hintIcon1.textContent = String.fromCodePoint("0x1F4CB");
   hintIcon2.textContent = String.fromCodePoint("0x1F520");    
   hintIcon3.textContent = String.fromCodePoint("0x1F30D"); 
-  hintCont1.textContent = "";   
-  hintCont2.textContent = "";
-  hintCont3.textContent = "";
+  hintCont1.textContent = "?";   
+  hintCont2.textContent = "?";
+  hintCont3.textContent = "?";
   
 }
 
