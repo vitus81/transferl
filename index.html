@@ -52,7 +52,7 @@
             height: 80px;
             vertical-align: top;
             border-radius: 10px;            
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);        
         }
         #club1-container {
             position: relative;
@@ -84,11 +84,16 @@
             font-size: 20px;
             margin-top:8px;
             margin-bottom:4px;
+            display: flex;   
+            align-items:center;
+            justify-content:center;                      
         }
         .clubName {            
             font-size: 16px;
-            margin-top:4px;
-            margin-bottom:4px;
+            height:34px;         
+            display: flex;
+            align-items:center;
+            justify-content:center;            
         }      
         .hintIcon {
             font-weight: bold;
@@ -130,22 +135,38 @@
             font-size: 36px;                             
             font-weight: bold;
             width:auto;  
+            height:42px;
         }  
         #game-solution {            
             text-align: center;
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             font-size: 18px;                 
-            width:auto;  
+            width:auto; 
+            height:25px; 
         }               
         #game-more {
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             color: gray;
             font-size: 18px;
+            height:25px;
         }   
         #share-link
         {
             cursor: pointer;
-        }        
+            text-decoration: underline;
+        }   
+        .footer
+        {
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: darkgray;
+            font-size: 14px;            
+        }   
+        .footer a
+        {
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: darkgray;
+            font-size: 14px;            
+        }     
         #dialog-help {
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             text-align: left;
@@ -267,17 +288,22 @@
             <table  width="350">
                 <tr>
                     <td id="game-outcome"></td>
-                </tr>
-                <tr>
-                    <td id="game-solution"></td>
-                </tr>
+                </tr>             
                 <tr>
                     <td id="game-more"><span id="share-link"></span></td>
-                </tr>
+                </tr>                
+                <tr>
+                    <td id="game-solution"></td>
+                </tr>                  
             </table>
-
         </div>
-
+        <table class="footer">
+            <tr>
+                <td style="text-align:left; width:130px;">Privacy policy</td>
+                <td style="text-align:center; width:auto;">&copy; 2022</td>
+                <td style="text-align:right; width:130px;"><a href="mailto:transferl.game@gmail.com">Contact</a></td>
+            </tr>                        
+        </table>
     </div>
 </center>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>

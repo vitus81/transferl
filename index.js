@@ -168,7 +168,7 @@ function gameOver()
   gameOutcome.style.color = lostColor;  
 
   $("#game-solution").css('visibility','visible');
-  gameSolution.textContent = "The answer was " + dat.name.toUpperCase();
+  gameSolution.textContent = "The solution was " + dat.name.toUpperCase();
 
   gameEnd();
 }
