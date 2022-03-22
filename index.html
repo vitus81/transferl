@@ -25,7 +25,7 @@
             color:gray;             
             width:50px;  
             -webkit-filter: grayscale(100%);
-            filter: grayscale(100%); 
+            filter: grayscale(100%) contrast(100%); 
             cursor: pointer; 
         }        
         #game-id {            
@@ -46,7 +46,7 @@
             flex-direction: column;
             align-items: center;
         }
-        .clubs-container {
+        #clubs-container {
             text-align: center;
             width: 350px;            
         }        
@@ -109,7 +109,7 @@
             margin-top:4px;
             margin-bottom:4px;            
         }        
-        .guess-container {
+        #guess-container {
             text-align: center;
             width: 350px;
             margin-top:15px;
@@ -186,7 +186,7 @@
         }     
         .histogram-axis
         {
-            margin:4px;
+            margin:2px;
             display: inline-block;
             min-width:20px;
             min-height:20px;
@@ -197,18 +197,17 @@
             text-align: center;
             vertical-align: middle;
             font-size: 14px;
-            margin:4px;
+            margin:2px;
             display: inline-block;
             min-width:20px;
             min-height:20px;
-            background-color: mediumaquamarine;
+            background-color: #329a77;
             padding-top:2px;
+            color: white; 
         }
         #barX
         {
-            min-width:20px;
-            background-color: firebrick;
-            color: white;            
+            background-color: firebrick;           
         }                      
         @keyframes slideIn {
         0% {
@@ -257,7 +256,7 @@
         
         <hr width="350">
     
-        <div width="350" class = "clubs-container">        
+        <div width="350" id = "clubs-container">        
             <table width="350">
                 <tr>
                     <td class = "club-container" id = "club1-container">
@@ -293,7 +292,7 @@
             </table>
         </div>  
     
-        <div width="350" class = "guess-container">
+        <div width="350" id = "guess-container">
             <table  width="350">
                 <tr>
                     <!--<td class="guess-header" id="guess1-header">1</td>-->
@@ -322,7 +321,7 @@
             </table>        
         </div>
 
-        <div width="350" class = "footer-container">
+        <div width="350" id = "footer-container">
 
             <table  width="350">
                 <tr>

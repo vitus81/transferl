@@ -6,7 +6,7 @@ const lostBackground = "lightgray";//"lightpink";
 const lostColor      = "firebrick";//"maroon";
 
 // Time definitioms
-var startDay   = 22;
+var startDay   = 23;
 var startMonth = 3-1; // month starts with 0 --> subtract 1!
 var startYear  = 2022;
 var UPDATE_RATE = 900;        // TBD: switch to 86400
@@ -25,16 +25,16 @@ const clubName3 = document.getElementById("club3-name");
 
 const gameId = document.getElementById("game-id");
 
-const hint1 = document.getElementById("hint1-container");
-const hint2 = document.getElementById("hint2-container");
-const hint3 = document.getElementById("hint3-container");
+var hint1 = document.getElementById("hint1-container");
+var hint2 = document.getElementById("hint2-container");
+var hint3 = document.getElementById("hint3-container");
 
-const hintIcon1 = document.getElementById("hint1-icon");
-const hintIcon2 = document.getElementById("hint2-icon");
-const hintIcon3 = document.getElementById("hint3-icon");
-const hintCont1 = document.getElementById("hint1-content");
-const hintCont2 = document.getElementById("hint2-content");
-const hintCont3 = document.getElementById("hint3-content");
+var hintIcon1 = document.getElementById("hint1-icon");
+var hintIcon2 = document.getElementById("hint2-icon");
+var hintIcon3 = document.getElementById("hint3-icon");
+var hintCont1 = document.getElementById("hint1-content");
+var hintCont2 = document.getElementById("hint2-content");
+var hintCont3 = document.getElementById("hint3-content");
 
 const guessFields = new Array();
 guessFields[0] = document.getElementById("guess1-input");
@@ -50,7 +50,9 @@ const statsIcon = document.getElementById("stats-icon");
 const gameOutcome  = document.getElementById("game-outcome");
 const gameSolution = document.getElementById("game-solution");
 const gameMore     = document.getElementById("game-more");
-const shareLink    = document.getElementById("share-link");
+var shareLink    = document.getElementById("share-link");
+
+var guessHistory = new Array(6);
 
 // Initialize the solution for today
 var todayRow = getTodaysRow();
@@ -59,21 +61,36 @@ gameId.textContent = "#" + String(todayRow) + " " + gameId.textContent;
 // Initialize status variables
 var attempts  = 0;
 var currGuess = 1;  
-var lastGuess ="";
+var lastGuess = "";
 var wonFlag   = 0;
-var digited   = 0;
-var dat; 
+var lastGameIdPlayed = 0;
+
+var shareString="";
+
+var dat;
+
+lastGameIdPlayed = Number(localStorage.getItem('lastGameIdPlayed'));
+
 
 // Fetch list of solutions and bootstrap game
 fetch(fileName)
-  .then(response => response.text())
-  .then(data => {
-  	// Do something with your data  	
-    var jsonDataParsed = JSON.parse(csvJSON(data));
-    var todayData = jsonDataParsed[todayRow];    
-    dat = todayData; 
-    startGame(dat);
-  });
+.then(response => response.text())
+.then(data => {
+  // Do something with your data  	
+  var jsonDataParsed = JSON.parse(csvJSON(data));
+  var todayData = jsonDataParsed[todayRow];      
+  dat = todayData;
+  if (lastGameIdPlayed == todayRow) // resume game or show result
+  {    
+    loadGameState();
+    if (wonFlag==0 && attempts<6) updateFieldZero(currGuess);      
+  }
+  else // new game
+  {    
+    startGame();
+  }
+});
+
 
 // --------------------------------------
 
@@ -86,18 +103,19 @@ function getTodaysRow()
   console.log(Math.floor(delta/UPDATE_RATE));
   
   todayRow = (Math.floor(delta/UPDATE_RATE)) + 1;
+  //todayRow = 0;
+  
   return todayRow;
 }
 
-function startGame(dat)
-{
-  //statsIcon.textContent=""; // TO BE REMOVED
+function startGame()
+{  
   
   $("#game-outcome").css('visibility','hidden');
   $("#game-solution").css('visibility','hidden');
   $("#game-more").css('visibility','visible');
 
-  drawSeasons(dat); 
+  drawSeasons(); 
   for (i=currGuess ; i<6 ; i++) 
   {
     guessFields[i].value="";
@@ -115,6 +133,7 @@ function checkGuess()
 {
   guessFields[0].value = replaceUmlauts(guessFields[0].value).toUpperCase();
   lastGuess = guessFields[0].value;
+  guessHistory[currGuess-1] = lastGuess;
 
   if (lastGuess.toUpperCase()==replaceUmlauts(dat.name).toUpperCase())
   {
@@ -133,8 +152,9 @@ function checkGuess()
       gameOver();
     }
     else
-    {
+    {      
       updateFieldZero(currGuess);
+      saveGameState();
     }
   }
 
@@ -176,7 +196,6 @@ function gameOver()
 function gameEnd()
 {
   // Prepare string for sharing
-  var shareString="";
   var resChar = (wonFlag==1 ? String(currGuess) : "X");
   shareString =  "Transferl #"+ String(todayRow) + " " + resChar + "/6\n\n";
   shareString += "1️⃣2️⃣3️⃣"+String.fromCodePoint("0x1F4CB")+String.fromCodePoint("0x1F520")+String.fromCodePoint("0x1F30D")+"\n";  
@@ -189,6 +208,8 @@ function gameEnd()
     copyStringToClipboard (shareString);
     alert("Your score was copied to the clipboard.\nYou can paste it in your apps!");
   };
+
+  saveGameState();
 }
 
 function copyStringToClipboard (str) {
@@ -223,7 +244,7 @@ function updateFieldZero(currGuess)
     }
   }
 
-  digited = 0;
+  let digited = 0;
   guessFields[0].style.backgroundColor="white";
   guessFields[0].style.color="lightgray";
   guessFields[0].value = "GUESS " + currGuess + " OF 6 ";
@@ -247,7 +268,7 @@ function getFlagEmoji(countryCode) {
   return String.fromCodePoint(...codePoints);
 }
 
-function drawSeasons(dat)
+function drawSeasons()
 {
   $("#club1-container").css('visibility','hidden');
   $("#club2-container").css('visibility','hidden');
@@ -298,27 +319,108 @@ function initHints()
 
 function setHint1()
 {
+  hint1 = document.getElementById("hint1-container");
+  hintCont1 = document.getElementById("hint1-content");
   $("#hint1-container").css('visibility','visible');
   hint1.classList.add('fade');
-  hint1.style.backgroundColor = clubSeason1.style.backgroundColor;
+  hint1.style.backgroundColor = "mediumaquamarine";
   hintCont1.textContent = dat.pos;
 }
 
 function setHint2()
 {
+  hint2 = document.getElementById("hint2-container");
+  hintCont2 = document.getElementById("hint2-content");  
   $("#hint2-container").css('visibility','visible');
   hint2.classList.add('fade');
-  hint2.style.backgroundColor = clubSeason2.style.backgroundColor;
+  hint2.style.backgroundColor = "mediumaquamarine";
   hintCont2.textContent = dat.letters;
 }
 
 function setHint3()
 {
+  hint3 = document.getElementById("hint3-container");
+  hintCont3 = document.getElementById("hint3-content");
+  hintIcon3 = document.getElementById("hint3-icon");
   $("#hint3-container").css('visibility','visible');
   hint3.classList.add('fade');  
-  hint3.style.backgroundColor = clubSeason3.style.backgroundColor;
-  hintIcon3.textContent = getFlagEmoji(dat.countryCode); 
+  hint3.style.backgroundColor = "mediumaquamarine";
+  hintIcon3.textContent = getFlagEmoji(dat.countryCode);  
   hintCont3.textContent = dat.country;
+}
+
+function saveGameState()
+{
+  lastGameIdPlayed = todayRow;
+  localStorage.setItem('lastGameIdPlayed', String(todayRow));
+  localStorage.setItem('wonFlag', String(wonFlag));
+  localStorage.setItem('attempts', String(attempts));
+  localStorage.setItem('lastGuess', lastGuess);
+  localStorage.setItem('currGuess', currGuess);
+  localStorage.setItem('shareString', shareString);
+
+  localStorage.setItem('guessHistory',JSON.stringify(guessHistory));
+
+  if ((wonFlag) || (attempts==6))
+  {    
+    localStorage.setItem('footerContHtml', document.getElementById("footer-container").innerHTML);
+  }
+
+  localStorage.setItem('guessContHtml' , document.getElementById("guess-container").innerHTML);
+  localStorage.setItem('clubsContHtml' , document.getElementById("clubs-container").innerHTML);
+}
+
+function loadGameState()
+{
+  console.log("Loading game state");
+  lastGameIdPlayed = Number(localStorage.getItem('lastGameIdPlayed'));
+  wonFlag = Number(localStorage.getItem('wonFlag'));
+  attempts = Number(localStorage.getItem('attempts'));
+  lastGuess = localStorage.getItem('lastGuess');
+  currGuess = Number(localStorage.getItem('currGuess'));
+  shareString = localStorage.getItem('shareString');
+
+  guessHistory = JSON.parse(localStorage.getItem('guessHistory'));
+
+  if ((wonFlag) || (attempts==6))
+  {
+    document.getElementById("footer-container").innerHTML = localStorage.getItem('footerContHtml');
+  }
+
+  document.getElementById("guess-container").innerHTML = localStorage.getItem('guessContHtml');
+  document.getElementById("clubs-container").innerHTML = localStorage.getItem('clubsContHtml');
+
+  guessFields[0] = document.getElementById("guess1-input");
+  guessFields[1] = document.getElementById("guess2-input");
+  guessFields[2] = document.getElementById("guess3-input");
+  guessFields[3] = document.getElementById("guess4-input");
+  guessFields[4] = document.getElementById("guess5-input");
+  guessFields[5] = document.getElementById("guess6-input");
+
+  if (wonFlag==0)
+  {
+    for(i=0;i<(attempts);i++)
+    {    
+      console.log(guessHistory[i]);
+      guessFields[attempts-i-1].value = guessHistory[i];
+    }
+  }
+  else
+  {
+    for(i=0;i<(attempts+1);i++)
+    {    
+      console.log(guessHistory[i]);
+      guessFields[attempts+1-i-1].value = guessHistory[i];
+    }
+  }
+
+  shareLink    = document.getElementById("share-link");
+  shareLink.onclick = function(){
+    copyStringToClipboard (shareString);
+    alert("Your score was copied to the clipboard.\nYou can paste it in your apps!");
+  };
+
+  console.log("DONE");
 }
 
 //var csv is the CSV file with headers
