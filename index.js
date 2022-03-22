@@ -226,7 +226,7 @@ function updateFieldZero(currGuess)
   digited = 0;
   guessFields[0].style.backgroundColor="white";
   guessFields[0].style.color="lightgray";
-  guessFields[0].value = "GUESS " + currGuess + " OF 6";
+  guessFields[0].value = "GUESS " + currGuess + " OF 6 ";
   guessFields[0].focus();  
   guessFields[0].onkeydown = function(){
     if (digited==0)
@@ -408,15 +408,32 @@ function csvJSON(csv){
     $( "#dialog-help" ).dialog({
       autoOpen: false,
       show: {
-        effect: "blind",
-        duration: 1000
+        effect: "fade",
+        duration: 500
       },
       hide: {
-        effect: "blind",
-        duration: 1000
+        effect: "fade",
+        duration: 500
       }
     }); 
     $( "#help-icon" ).on( "click", function() {
       $( "#dialog-help" ).dialog( "open" );
+    });
+  } );
+
+  $( function() {
+    $( "#dialog-stats" ).dialog({
+      autoOpen: false,
+      show: {
+        effect: "fade",
+        duration: 500
+      },
+      hide: {
+        effect: "fade",
+        duration: 500
+      }
+    }); 
+    $( "#stats-icon" ).on( "click", function() {
+      $( "#dialog-stats" ).dialog( "open" );
     });
   } );
