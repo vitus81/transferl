@@ -6,7 +6,7 @@ const lostBackground = "lightgray";//"lightpink";
 const lostColor      = "firebrick";//"maroon";
 
 // Time definitioms
-var startDay   = 21;
+var startDay   = 22;
 var startMonth = 3-1; // month starts with 0 --> subtract 1!
 var startYear  = 2022;
 var UPDATE_RATE = 900;        // TBD: switch to 86400
@@ -85,13 +85,13 @@ function getTodaysRow()
   var delta = currentTimestamp - startTimestamp;
   console.log(Math.floor(delta/UPDATE_RATE));
   
-  todayRow = (Math.floor(delta/UPDATE_RATE)) % 10; // TBD: remove modulo
+  todayRow = (Math.floor(delta/UPDATE_RATE)) + 1;
   return todayRow;
 }
 
 function startGame(dat)
 {
-  statsIcon.textContent=""; // TO BE REMOVED
+  //statsIcon.textContent=""; // TO BE REMOVED
   
   $("#game-outcome").css('visibility','hidden');
   $("#game-solution").css('visibility','hidden');
