@@ -4,12 +4,12 @@ const wonBackground  = "#329a77";
 const wonColor       = "white";
 const lostBackground = "lightgray";//"lightpink";
 const lostColor      = "firebrick";//"maroon";
-
+const hintBgColor    = "#a6cfc1";
 // Time definitioms
 var startDay   = 23;
 var startMonth = 3-1; // month starts with 0 --> subtract 1!
 var startYear  = 2022;
-var UPDATE_RATE = 900;        // TBD: switch to 86400
+var UPDATE_RATE = 880;        // TBD: switch to 86400
 var fileName = "lstBeta.csv"; // TBD: switch to lts.csv
 
 // Get objects
@@ -290,17 +290,26 @@ function drawSeasons()
   setTimeout( ()=>{ 
     $("#club1-container").css('visibility','visible');
     clubContainer1.classList.add('slide');
+    document.getElementById('club1-color1').style.backgroundColor=dat.col1A;
+    document.getElementById('club1-color2').style.backgroundColor=dat.col1B;
+    document.getElementById('club1-color3').style.backgroundColor=dat.col1C;
     clubSeason1.textContent = dat.season1;
     clubName1.textContent = dat.club1;
   },500);
   setTimeout( ()=>{ 
     $("#club2-container").css('visibility','visible');
+    document.getElementById('club2-color1').style.backgroundColor=dat.col2A;
+    document.getElementById('club2-color2').style.backgroundColor=dat.col2B;
+    document.getElementById('club2-color3').style.backgroundColor=dat.col2C;    
     clubContainer2.classList.add('slide');
     clubSeason2.textContent = dat.season2;
     clubName2.textContent = dat.club2;
   },1750);  
   setTimeout( ()=>{ 
     $("#club3-container").css('visibility','visible');
+    document.getElementById('club3-color1').style.backgroundColor=dat.col3A;
+    document.getElementById('club3-color2').style.backgroundColor=dat.col3B;
+    document.getElementById('club3-color3').style.backgroundColor=dat.col3C;    
     clubContainer3.classList.add('slide');
     clubSeason3.textContent = dat.season3;
     clubName3.textContent = dat.club3;
@@ -333,7 +342,7 @@ function setHint1()
   hintCont1 = document.getElementById("hint1-content");
   $("#hint1-container").css('visibility','visible');
   hint1.classList.add('fade');
-  hint1.style.backgroundColor = "mediumaquamarine";
+  hint1.style.backgroundColor = hintBgColor;
   hintCont1.textContent = dat.pos;
 }
 
@@ -343,7 +352,7 @@ function setHint2()
   hintCont2 = document.getElementById("hint2-content");  
   $("#hint2-container").css('visibility','visible');
   hint2.classList.add('fade');
-  hint2.style.backgroundColor = "mediumaquamarine";
+  hint2.style.backgroundColor = hintBgColor;
   hintCont2.textContent = dat.letters;
 }
 
@@ -354,7 +363,7 @@ function setHint3()
   hintIcon3 = document.getElementById("hint3-icon");
   $("#hint3-container").css('visibility','visible');
   hint3.classList.add('fade');  
-  hint3.style.backgroundColor = "mediumaquamarine";
+  hint3.style.backgroundColor = hintBgColor;
   hintIcon3.textContent = getFlagEmoji(dat.countryCode);  
   hintCont3.textContent = dat.country;
 }
