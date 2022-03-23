@@ -69,8 +69,14 @@ var shareString="";
 
 var dat;
 
-lastGameIdPlayed = Number(localStorage.getItem('lastGameIdPlayed'));
+var frequency = new Array(0,0,0,0,0,0,0);
+var totalGames = 0;
+var gamesWon = 0;
+var currStreak = 0;
+var bestStrak = 0;
+var winPercent = 0;
 
+lastGameIdPlayed = Number(localStorage.getItem('lastGameIdPlayed'));
 
 // Fetch list of solutions and bootstrap game
 fetch(fileName)
@@ -80,9 +86,10 @@ fetch(fileName)
   var jsonDataParsed = JSON.parse(csvJSON(data));
   var todayData = jsonDataParsed[todayRow];      
   dat = todayData;
+  loadStats();
   if (lastGameIdPlayed == todayRow) // resume game or show result
   {    
-    loadGameState();
+    loadGameState();    
     if (wonFlag==0 && attempts<6) updateFieldZero(currGuess);      
   }
   else // new game
@@ -210,6 +217,9 @@ function gameEnd()
   };
 
   saveGameState();
+  updateStats();
+  $( "#dialog-stats" ).dialog( "open" );
+
 }
 
 function copyStringToClipboard (str) {
@@ -421,6 +431,98 @@ function loadGameState()
   };
 
   console.log("DONE");
+}
+
+function loadStats()
+{
+  // load from localstorage
+  totalGames = Number(localStorage.getItem('totalGames'));
+  gamesWon = Number(localStorage.getItem('gamesWon'));
+  currStreak = Number(localStorage.getItem('currStreak'));
+  bestStreak = Number(localStorage.getItem('bestStreak'));
+
+  if (localStorage.getItem('frequency') !== null)
+    frequency = JSON.parse(localStorage.getItem('frequency'));
+
+  winPercent = Math.round(gamesWon/totalGames*100);
+  
+  document.getElementById("stats-totalTries").textContent = String(totalGames);
+  document.getElementById("stats-successRate").textContent = (isNaN(winPercent))?"---":String(winPercent)+"%";
+  document.getElementById("stats-currentStreak").textContent = String(currStreak);  
+  document.getElementById("stats-bestStreak").textContent = String(bestStreak);  
+
+  renderHistogram(frequency);
+
+}
+
+function updateStats()
+{
+  // load from localstorage
+  totalGames = Number(localStorage.getItem('totalGames'));
+  gamesWon = Number(localStorage.getItem('gamesWon'));
+  currStreak = Number(localStorage.getItem('currStreak'));
+  bestStreak = Number(localStorage.getItem('bestStreak'));
+  
+  if (localStorage.getItem('frequency') !== null)
+    frequency = JSON.parse(localStorage.getItem('frequency'));
+
+  // Update
+  totalGames++;
+  if (wonFlag)
+  {
+    gamesWon++;
+    currStreak++;
+    if (currStreak > bestStreak) bestStreak = currStreak;
+  }
+  else
+  {
+    currStreak = 0;
+  }
+  winPercent = Math.round(gamesWon/totalGames*100);
+
+  if (wonFlag)
+    frequency[attempts]++;
+  else
+    frequency[6]++;
+
+  document.getElementById("stats-totalTries").textContent = String(totalGames);
+  document.getElementById("stats-successRate").textContent = String(winPercent)+"%";
+  document.getElementById("stats-currentStreak").textContent = String(currStreak);  
+  document.getElementById("stats-bestStreak").textContent = String(bestStreak);  
+
+  renderHistogram(frequency);
+
+    // save to localstorage
+  localStorage.setItem('totalGames',String(totalGames));
+  localStorage.setItem('gamesWon',String(gamesWon));
+  localStorage.setItem('currStreak',String(currStreak));
+  localStorage.setItem('bestStreak',String(bestStreak));
+  
+  localStorage.setItem('frequency',JSON.stringify(frequency));
+
+}
+
+function renderHistogram(frequency)
+{
+  var normFactor = 200/frequency.reduce(function(a, b) {
+    return Math.max(a, b);
+    }, -Infinity);
+  normFactor = Math.ceil(normFactor);
+  console.log("norm is "+normFactor);
+  for (i=0;i<=6;i++)
+  {
+    var idString;
+    if (i<6)
+      idString = "bar"+String(i+1);
+    else
+      idString = "barX";
+    document.getElementById(idString).style.minWidth = String(normFactor * frequency[i])+"px";
+    // Suppress label if too narrow
+    if (normFactor * frequency[i] < 25)
+      document.getElementById(idString).textContent="";
+    else
+      document.getElementById(idString).textContent=String(frequency[i]);
+  }
 }
 
 //var csv is the CSV file with headers

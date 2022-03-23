@@ -184,6 +184,13 @@
             color: gray;
             font-size: 14px;            
         }     
+        .stats-value
+        {
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: black;
+            font-size: 18px;            
+            font-weight: bold;
+        }         
         .histogram-axis
         {
             margin:2px;
@@ -343,6 +350,12 @@
             </tr>                        
         </table>
     </div>
+    <script>
+        var forFriends = (new URLSearchParams(window.location.search)).get("forFriends");
+        if (forFriends==1)
+            document.write("<a onclick='localStorage.clear()'>Reset stats</a>");
+    </script>
+    
 </center>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
