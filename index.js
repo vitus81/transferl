@@ -2,14 +2,14 @@
 const veryLightGray  = "#E8E8E8";
 const wonBackground  = "#329a77";
 const wonColor       = "white";
-const lostBackground = "lightgray";//"lightpink";
-const lostColor      = "firebrick";//"maroon";
+const lostBackground = "gray";//"lightgray";//"lightpink";
+const lostColor      = "lightgray";//"gray";//"firebrick";//"maroon";
 const hintBgColor    = "#a6cfc1";
 // Time definitioms
-var startDay   = 23;
+var startDay   = 24;
 var startMonth = 3-1; // month starts with 0 --> subtract 1!
 var startYear  = 2022;
-var UPDATE_RATE = 880;        // TBD: switch to 86400
+var UPDATE_RATE = 900;        // TBD: switch to 86400
 var fileName = "lstBeta.csv"; // TBD: switch to lts.csv
 
 // Get objects
@@ -192,7 +192,7 @@ function gameOver()
   
   $("#game-outcome").css('visibility','visible');
   gameOutcome.textContent = "GAME OVER";
-  gameOutcome.style.color = lostColor;  
+  gameOutcome.style.color = "firebrick";//lostColor;  
 
   $("#game-solution").css('visibility','visible');
   gameSolution.textContent = "The solution was " + dat.name.toUpperCase();
