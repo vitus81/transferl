@@ -2,11 +2,12 @@
 const veryLightGray  = "#E8E8E8";
 const wonBackground  = "#329a77";
 const wonColor       = "white";
-const lostBackground = "gray";//"lightgray";//"lightpink";
-const lostColor      = "lightgray";//"gray";//"firebrick";//"maroon";
+const lostBackground = "darkgray";
+const lostColor      = "lightgray";
 const hintBgColor    = "#a6cfc1";
+
 // Time definitioms
-var startDay   = 24;
+var startDay   = 25;
 var startMonth = 3-1; // month starts with 0 --> subtract 1!
 var startYear  = 2022;
 var UPDATE_RATE = 900;        // TBD: switch to 86400
@@ -518,8 +519,10 @@ function renderHistogram(frequency)
     }, -Infinity);
   normFactor = Math.ceil(normFactor);
   console.log("norm is "+normFactor);
+  var totalWon = 0;
   for (i=0;i<=6;i++)
   {
+    if (i<6) totalWon += frequency[i];
     var idString;
     if (i<6)
       idString = "bar"+String(i+1);
@@ -532,6 +535,13 @@ function renderHistogram(frequency)
     else
       document.getElementById(idString).textContent=String(frequency[i]);
   }
+
+  var avg = 0;
+  for(i=0;i<6;i++)
+  {
+    avg += (i+1)*frequency[i]/totalWon;
+  }
+  document.getElementById("avg-guesses").textContent=String(avg.toFixed(2));
 }
 
 //var csv is the CSV file with headers

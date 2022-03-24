@@ -7,20 +7,28 @@
     <title>Transferl</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">    
+
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Yantramanav:wght@100;400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100;500;700&display=swap');
+    </style>     
+
+    <style>
+        * {
+            font-family: 'Barlow Condensed', sans-serif;
+        }
         body{ 
             background: rgb(255, 255, 255);
-            text-align: center;
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-align: center;            
         }
         .h1 {            
-            text-align: center;
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 36px;                 
+            text-align: center;            
+            font-size: 36px;  
+            font-weight: bold;               
             width:auto;  
+            font-family: 'Barlow Condensed', sans-serif;
         }
-        .topIcon {
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        .topIcon {            
             font-size: 24px;     
             color:gray;             
             width:50px;  
@@ -29,8 +37,7 @@
             cursor: pointer; 
         }        
         #game-id {            
-            text-align: center;
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-align: center;            
             font-weight: normal;
             font-size: 14px;            
             margin-top: -8px;
@@ -50,17 +57,10 @@
             text-align: center;
             width: 350px;                                   
         }        
-        .club-container {
-            /*background-color: #a6cfc1;*/
+        .club-container {            
             background:radial-gradient(farthest-corner at 100px 0px,white 0%,#a6cfc1 80%, #a6cfc1 100%);
             height: 94px;
-            vertical-align: top;
-            -webkit-border-bottom-right-radius: 14px;
-            -webkit-border-bottom-left-radius: 14px;
-            -moz-border-radius-bottomright: 14px;
-            -moz-border-radius-bottomleft: 14px;
-            border-bottom-right-radius: 14px;
-            border-bottom-left-radius: 14px;          
+            vertical-align: top;   
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35), 0 2px 5px 0 rgba(0, 0, 0, 0.33);
             padding:0px;
         }
@@ -79,12 +79,10 @@
         .club-container.slide {
             animation: 1.0s linear slideIn;
         }
-        .hint-container {
-            /*background-color: #a6cfc1;*/            
+        .hint-container {           
             background:radial-gradient(farthest-corner at 100px 0px,white 0%,#a6cfc1 80%, #a6cfc1 100%);
             height: 50px;
             font-size: 24px;
-            border-radius: 14px;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35), 0 2px 5px 0 rgba(0, 0, 0, 0.33);
         }
         .hint-container.fade {
@@ -137,26 +135,22 @@
             border-color:lightgray;
             border-radius: 5px;
             border-width: 0px;
-            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2);            
         }      
         #game-outcome {            
-            text-align: center;
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-align: center;            
             font-size: 36px;                             
             font-weight: bold;
             width:auto;  
             height:42px;
         }  
         #game-solution {            
-            text-align: center;
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-align: center;            
             font-size: 18px;                 
             width:auto; 
             height:25px; 
         }               
-        #game-more {
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        #game-more {            
             color: gray;
             font-size: 18px;
             height:25px;
@@ -167,34 +161,28 @@
             text-decoration: underline;
         }   
         .footer
-        {
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        {            
             color: darkgray;
             font-size: 14px;            
         }   
         .footer a
-        {
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        {            
             color: darkgray;
             font-size: 14px;            
         }     
-        #dialog-help {
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        #dialog-help {            
             text-align: left;
         }
-        #dialog-stats {
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        #dialog-stats {            
             text-align: left;
         }   
         .stats-header
-        {
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        {            
             color: gray;
-            font-size: 14px;            
+            font-size: 14px;         
         }     
         .stats-value
-        {
-            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        {            
             color: black;
             font-size: 18px;            
             font-weight: bold;
@@ -251,19 +239,8 @@
       }   
       .clubColor {
           min-height: 7px;
-          background-color:black;
+          background-color:mediumacquamarine;
       }         
-/*      #club1-color1 {
-          margin-top:0px;
-          background-color:red;
-      }               
-      #club1-color2 {          
-          background-color:black;
-      }              
-      #club1-color3 {          
-          background-color:red;
-      } */
-
     </style>    
 </head>
 <body>
@@ -272,12 +249,13 @@
         <table width="100%">
             <tr>
                 <td class=topIcon id=help-icon>&#10068;</td>
-                <td class=h1>TRANSFERL<span style="color:red; font-size:14px; vertical-align: super;">beta</span></td>
+                <td class=h1>TRANSFERL</td>                
                 <td class=topIcon id=stats-icon>&#128202;</td>
             </tr>
             <tr>
                 <td colspan="3">
                     <div id="game-id"></div>
+                    <div style="color:red; font-size:14px; margin-left:120px;margin-top:-24px;filter:opacity(40%);">beta</div>
                 </td>
             </tr>
         </table>
@@ -332,28 +310,22 @@
     
         <div width="350" id = "guess-container">
             <table  width="350">
-                <tr>
-                    <!--<td class="guess-header" id="guess1-header">1</td>-->
+                <tr>                    
                     <td><input class="guess-input" id="guess1-input"></td>
                 </tr>
-                <tr>
-                    <!--<td class="guess-header" id="guess2-header">2</td>-->
+                <tr>                    
                     <td><input class="guess-input" id="guess2-input"></td>
                 </tr>
-                <tr>
-                    <!--<td class="guess-header" id="guess3-header">3</td>-->
+                <tr>                    
                     <td><input class="guess-input" id="guess3-input"></td>
                 </tr>
-                <tr>
-                    <!--<td class="guess-header" id="guess4-header">4</td>-->
+                <tr>                    
                     <td><input class="guess-input" id="guess4-input"></td>
                 </tr>
-                <tr>
-                    <!--<td class="guess-header" id="guess5-header">5</td>-->
+                <tr>                    
                     <td><input class="guess-input" id="guess5-input"></td>
                 </tr>
-                <tr>
-                    <!--<td class="guess-header" id="guess6-header">6</td>-->
+                <tr>                    
                     <td><input class="guess-input" id="guess6-input"></td>
                 </tr>                                                            
             </table>        
@@ -404,17 +376,17 @@
             &#x2705; Müller<br>
             &#x2705; Muller<br>
             &#x274C; <span style="text-decoration: line-through;">Mueller</span></p>
-        <p>When the <span style="color:red; font-size:14px;">beta</span> phase is over, a new footballer will be available every day!</p>
+        <p>A new footballer will be available every day!</p>
         <p style="font-style: italic;">Credits: this game was strongly inspired by <a target="_blank" href="https://www.nytimes.com/games/wordle/index.html">Wordle</a> and <a target="_blank" href="https://missing11.com/">Missing 11</a></p>
 
     </div> 
     
     <div id="dialog-stats" title="Statistics">
-        <table style="margin-bottom: 20px;">
+        <table style="margin-bottom: 20px; min-width: 280px;">
             <tr>
                 <td>
                     <div class="stats-header">
-                        Total tries
+                        Total<br>tries
                     </div>
                     <div class="stats-value" id="stats-totalTries">
                         0
@@ -422,7 +394,7 @@
                 </td>
                 <td>
                     <div class="stats-header">
-                        Success rate
+                        Success<br>rate
                     </div>
                     <div class="stats-value" id="stats-successRate">
                         -
@@ -430,7 +402,7 @@
                 </td>
                 <td>
                     <div class="stats-header">
-                        Current streak
+                        Current<br>streak
                     </div>
                     <div class="stats-value" id="stats-currentStreak">
                         0
@@ -438,23 +410,31 @@
                 </td>
                 <td>
                     <div class="stats-header">
-                        Best streak
+                        Best<br>streak
                     </div>
                     <div class="stats-value" id="stats-bestStreak">
                         0
                     </div>                    
-                </td>                                                
+                </td> 
+                <td>
+                    <div class="stats-header">
+                        Average<br>guesses
+                    </div>
+                    <div class="stats-value" id="avg-guesses">
+                        0
+                    </div>                    
+                </td>                                                                
             </tr>
             </table>
 
-            <div class="stats-header" style="margin-bottom:10px;">Guess distribution</div>
+            <div class="stats-header" style="margin-bottom:10px;">Guess distribution</div>            
             <div><span class="histogram-axis">1</span><span class="histogram-bar" id="bar1">0</span></div>
             <div><span class="histogram-axis">2</span><span class="histogram-bar" id="bar2">0</span></div>
             <div><span class="histogram-axis">3</span><span class="histogram-bar" id="bar3">0</span></div>
             <div><span class="histogram-axis">4</span><span class="histogram-bar" id="bar4">0</span></div>
             <div><span class="histogram-axis">5</span><span class="histogram-bar" id="bar5">0</span></div>
             <div><span class="histogram-axis">6</span><span class="histogram-bar" id="bar6">0</span></div>
-            <div><span class="histogram-axis">X</span><span class="histogram-bar" id="barX">0</span></div>
+            <div><span class="histogram-axis">X</span><span class="histogram-bar" id="barX">0</span></div>                        
 
     </div>
 
