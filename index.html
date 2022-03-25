@@ -162,8 +162,12 @@
         }   
         .footer
         {            
+            min-width: 350px;
             color: darkgray;
-            font-size: 14px;            
+            font-size: 14px;
+            position:absolute; 
+            bottom:10px;
+            
         }   
         .footer a
         {            
@@ -240,7 +244,8 @@
       .clubColor {
           min-height: 7px;
           background-color:mediumacquamarine;
-      }         
+      }    
+
     </style>    
 </head>
 <body>
@@ -331,7 +336,9 @@
             </table>        
         </div>
 
-        <div width="350" id = "footer-container">
+        <!--<div class="filler"></div>-->
+
+        <div width="350" id ="footer-container" style="position:relative;top:0px;">
 
             <table  width="350">
                 <tr>
@@ -345,20 +352,23 @@
                 </tr>                  
             </table>
         </div>
+
+        <!--<div class="filler" style="height:auto !important; background-color: pink;"></div>-->
+
         <table class="footer">
             <tr>
                 <td style="text-align:left; width:130px;">Privacy policy</td>
                 <td style="text-align:center; width:auto;">&copy; 2022</td>
-                <td style="text-align:right; width:130px;"><a href="mailto:transferl.game@gmail.com">Contact</a></td>
+                <td style="text-align:right; width:130px;"><a href="mailto:transferl.game@gmail.com">Contact</a>
+                    <script>
+                        var forFriends = (new URLSearchParams(window.location.search)).get("forFriends");
+                        if (forFriends==1)
+                            document.write("<a style='text-decoration:underline; cursor: pointer;' onclick='localStorage.clear()'>Reset stats</a>");
+                    </script>                 </td>
             </tr>                        
         </table>
     </div>
-    <script>
-        var forFriends = (new URLSearchParams(window.location.search)).get("forFriends");
-        if (forFriends==1)
-            document.write("<a onclick='localStorage.clear()'>Reset stats</a>");
-    </script>
-    
+   
 </center>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
@@ -382,7 +392,7 @@
     </div> 
     
     <div id="dialog-stats" title="Statistics">
-        <table style="margin-bottom: 20px; min-width: 280px;">
+        <table style="margin-bottom: 20px; min-width: 250px;">
             <tr>
                 <td>
                     <div class="stats-header">
