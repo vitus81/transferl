@@ -139,7 +139,7 @@ function startGame()
 
 function checkGuess()
 {
-  guessFields[0].value = replaceUmlauts(guessFields[0].value).toUpperCase();
+  guessFields[0].value = replaceUmlauts(guessFields[0].value).toUpperCase().trim();
   lastGuess = guessFields[0].value;
   guessHistory[currGuess-1] = lastGuess;
 
