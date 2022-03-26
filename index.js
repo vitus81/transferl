@@ -476,7 +476,7 @@ function loadGameState()
     });    
   } else {
     // Fallback
-    shareString += "\nhttps://transferl.footballgames.day";
+    shareString += "https://transferl.footballgames.day";
     shareLink.onclick = function(){
       copyStringToClipboard (shareString);
       alert("Your score was copied to the clipboard.\nYou can paste it in your apps!");
