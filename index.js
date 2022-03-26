@@ -219,6 +219,16 @@ function gameEnd()
   console.log(shareString);
   shareLink.textContent="Share";
 
+  handleShareButton();
+
+  saveGameState();
+  updateStats();
+  $( "#dialog-stats" ).dialog( "open" );
+
+}
+
+function handleShareButton()
+{
   if (navigator && navigator.share) {
     // Web Share API is supported
     
@@ -241,13 +251,7 @@ function gameEnd()
       alert("Your score was copied to the clipboard.\nYou can paste it in your apps!");
     };    
   }
-
-  saveGameState();
-  updateStats();
-  $( "#dialog-stats" ).dialog( "open" );
-
 }
-
 function copyStringToClipboard (str) {
   // Create new element
   var el = document.createElement('textarea');
@@ -461,28 +465,7 @@ function loadGameState()
 
   shareLink    = document.getElementById("share-link");
 
-  if (navigator && navigator.share) {
-    // Web Share API is supported
-    
-    // Share must be triggered by "user activation"
-    var shareData = {    
-      text: shareString + "transferl.footballgames.day"
-    };
-    shareLink.addEventListener('click', async () => {
-      try {
-        await navigator.share(shareData)
-        shareLink.textContent = 'Shared successfully'
-      } catch(err) {
-        shareLink.textContent = 'Error: ' + err
-      }
-    });    
-  } else {
-    // Fallback
-    shareLink.onclick = function(){
-      copyStringToClipboard (shareString + "transferl.footballgames.day");
-      alert("Your score was copied to the clipboard.\nYou can paste it in your apps!");
-    };    
-  }
+  handleShareButton();
 
   console.log("DONE");
 }
