@@ -147,14 +147,14 @@ body{
     cursor: pointer;
     text-decoration: underline;
 }   
-.footer
+#footer
 {            
     min-width: 350px;
     color: darkgray;
     font-size: 14px;
     position:relative;    
 }   
-.footer a
+#footer a
 {            
     color: darkgray;
     font-size: 14px;            

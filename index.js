@@ -10,7 +10,7 @@ const hintBgColor    = "#a6cfc1";
 var startDay   = 26;          // TBD: switch to launch day
 var startMonth = 3-1;         // month starts with 0 --> subtract 1!
 var startYear  = 2022;
-var UPDATE_RATE = 900;        // TBD: switch to 86400
+var UPDATE_RATE = 86400;      // TBD: switch to 86400
 var fileName = "lstBeta.csv"; // TBD: switch to lts.csv
 
 // Get objects
@@ -57,9 +57,10 @@ var guessHistory = new Array(6);
 
 // Initialize the solution for today
 var todayRow = getTodaysRow();
+//if (todayRow==0) todayRow=1; // test only
 gameId.textContent = "#" + String(todayRow) + " " + gameId.textContent;
 
-if (todayRow < 0)
+if (todayRow <= 0)
 {  
   window.location.replace("comingsoon.html");
 }
@@ -412,7 +413,7 @@ function saveGameState()
 
   if ((wonFlag) || (attempts==6))
   {    
-    localStorage.setItem('footerContHtml', document.getElementById("footer-container").innerHTML);
+    localStorage.setItem('footerContHtml', document.getElementById("result-container").innerHTML);
   }
 
   localStorage.setItem('guessContHtml' , document.getElementById("guess-container").innerHTML);
@@ -433,7 +434,7 @@ function loadGameState()
 
   if ((wonFlag) || (attempts==6))
   {
-    document.getElementById("footer-container").innerHTML = localStorage.getItem('footerContHtml');
+    document.getElementById("result-container").innerHTML = localStorage.getItem('footerContHtml');
   }
 
   document.getElementById("guess-container").innerHTML = localStorage.getItem('guessContHtml');
