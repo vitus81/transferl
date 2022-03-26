@@ -213,10 +213,17 @@ function gameEnd()
   shareString += "\n\nhttps://transferl.footballgames.day";
   console.log(shareString);
   shareLink.textContent="Share";
-  shareLink.onclick = function(){
-    copyStringToClipboard (shareString);
-    alert("Your score was copied to the clipboard.\nYou can paste it in your apps!");
-  };
+
+  if (navigator.share) {
+    // Web Share API is supported
+    alert("supported");
+  } else {
+    // Fallback
+    shareLink.onclick = function(){
+      copyStringToClipboard (shareString);
+      alert("Your score was copied to the clipboard.\nYou can paste it in your apps!");
+    };    
+  }
 
   saveGameState();
   updateStats();
