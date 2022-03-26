@@ -498,7 +498,7 @@ function loadStats()
   winPercent = Math.round(gamesWon/totalGames*100);
   
   document.getElementById("stats-totalTries").textContent = String(totalGames);
-  document.getElementById("stats-successRate").textContent = (isNaN(winPercent))?"---":String(winPercent)+"%";
+  document.getElementById("stats-successRate").textContent = (isNaN(winPercent))?"-":String(winPercent)+"%";
   document.getElementById("stats-currentStreak").textContent = String(currStreak);  
   document.getElementById("stats-bestStreak").textContent = String(bestStreak);  
 
@@ -582,7 +582,7 @@ function renderHistogram(frequency)
   {
     avg += (i+1)*frequency[i]/totalWon;
   }
-  document.getElementById("avg-guesses").textContent = (isNaN(avg))?"---":String(avg.toFixed(2));
+  document.getElementById("avg-guesses").textContent = (isNaN(avg))?"-":String(avg.toFixed(2));
 }
 
 //var csv is the CSV file with headers
