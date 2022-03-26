@@ -5,6 +5,7 @@ const wonColor       = "white";
 const lostBackground = "darkgray";
 const lostColor      = "lightgray";
 
+
 // Time definitioms
 var startDay   = 26;          // TBD: switch to launch day
 var startMonth = 3-1;         // month starts with 0 --> subtract 1!
