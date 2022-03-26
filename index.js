@@ -4,7 +4,6 @@ const wonBackground  = "#329a77";
 const wonColor       = "white";
 const lostBackground = "darkgray";
 const lostColor      = "lightgray";
-const hintBgColor    = "#a6cfc1";
 
 // Time definitioms
 var startDay   = 26;          // TBD: switch to launch day
