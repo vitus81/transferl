@@ -232,9 +232,8 @@ function gameEnd()
     });    
   } else {
     // Fallback
-    shareString += "\ntransferl.footballgames.day";
     shareLink.onclick = function(){
-      copyStringToClipboard (shareString);
+      copyStringToClipboard (shareString + "transferl.footballgames.day");
       alert("Your score was copied to the clipboard.\nYou can paste it in your apps!");
     };    
   }
@@ -476,9 +475,8 @@ function loadGameState()
     });    
   } else {
     // Fallback
-    shareString += "transferl.footballgames.day";
     shareLink.onclick = function(){
-      copyStringToClipboard (shareString);
+      copyStringToClipboard (shareString + "transferl.footballgames.day");
       alert("Your score was copied to the clipboard.\nYou can paste it in your apps!");
     };    
   }
