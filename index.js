@@ -582,7 +582,7 @@ function renderHistogram(frequency)
   {
     avg += (i+1)*frequency[i]/totalWon;
   }
-  document.getElementById("avg-guesses").textContent=String(avg.toFixed(2));
+  document.getElementById("avg-guesses").textContent = (isNaN(avg))?"---":String(avg.toFixed(2));
 }
 
 //var csv is the CSV file with headers
