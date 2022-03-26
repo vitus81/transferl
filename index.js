@@ -210,16 +210,16 @@ function gameEnd()
   for (i=1 ; i<currGuess; i++) shareString += String.fromCodePoint("0x2b1b");
   if (wonFlag) shareString += String.fromCodePoint("0x1f7e9");
   for (i=currGuess+1 ; i<7; i++) shareString += String.fromCodePoint("0x25fd");
-  shareString += "\n\nhttps://transferl.footballgames.day";
   console.log(shareString);
   shareLink.textContent="Share";
 
-  if (navigator.share) {
+  if (navigator && navigator.share) {
     // Web Share API is supported
     
     // Share must be triggered by "user activation"
     var shareData = {    
-      text: shareString   
+      text: shareString  ,
+      url = "https://transferl.footballgames.day"
     };
     shareLink.addEventListener('click', async () => {
       try {
@@ -232,6 +232,7 @@ function gameEnd()
 
   } else {
     // Fallback
+    shareString += "\n\nhttps://transferl.footballgames.day";
     shareLink.onclick = function(){
       copyStringToClipboard (shareString);
       alert("Your score was copied to the clipboard.\nYou can paste it in your apps!");
