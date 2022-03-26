@@ -220,7 +220,7 @@ function gameEnd()
     // Share must be triggered by "user activation"
     var shareData = {    
       text: shareString  ,
-      url: "https://transferl.footballgames.day"
+      url: "transferl.footballgames.day"
     };
     shareLink.addEventListener('click', async () => {
       try {
@@ -232,7 +232,7 @@ function gameEnd()
     });    
   } else {
     // Fallback
-    shareString += "\nhttps://transferl.footballgames.day";
+    shareString += "\ntransferl.footballgames.day";
     shareLink.onclick = function(){
       copyStringToClipboard (shareString);
       alert("Your score was copied to the clipboard.\nYou can paste it in your apps!");
