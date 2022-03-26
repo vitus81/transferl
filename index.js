@@ -219,7 +219,7 @@ function gameEnd()
     // Share must be triggered by "user activation"
     var shareData = {    
       text: shareString  ,
-      url = "https://transferl.footballgames.day"
+      url: "https://transferl.footballgames.day"
     };
     shareLink.addEventListener('click', async () => {
       try {
