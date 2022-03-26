@@ -7,11 +7,11 @@ const lostColor      = "lightgray";
 
 
 // Time definitioms
-var startDay   = 26;          // TBD: switch to launch day
+var startDay   = 27;          // TBD: switch to launch day 27.3.2022
 var startMonth = 3-1;         // month starts with 0 --> subtract 1!
 var startYear  = 2022;
 var UPDATE_RATE = 86400;      // TBD: switch to 86400
-var fileName = "lstBeta.csv"; // TBD: switch to lts.csv
+var fileName = "lst.csv"; // TBD: switch to lts.csv
 
 // Get objects
 const clubContainer1 = document.getElementById("club1-container");
