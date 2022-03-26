@@ -225,7 +225,7 @@ function gameEnd()
     shareLink.addEventListener('click', async () => {
       try {
         await navigator.share(shareData)
-        shareLink.textContent = 'MDN shared successfully'
+        shareLink.textContent = 'Shared successfully'
       } catch(err) {
         shareLink.textContent = 'Error: ' + err
       }
@@ -469,14 +469,14 @@ function loadGameState()
     shareLink.addEventListener('click', async () => {
       try {
         await navigator.share(shareData)
-        shareLink.textContent = 'MDN shared successfully'
+        shareLink.textContent = 'Shared successfully'
       } catch(err) {
         shareLink.textContent = 'Error: ' + err
       }
     });    
   } else {
     // Fallback
-    shareString += transferl.footballgames.day";
+    shareString += "transferl.footballgames.day";
     shareLink.onclick = function(){
       copyStringToClipboard (shareString);
       alert("Your score was copied to the clipboard.\nYou can paste it in your apps!");
