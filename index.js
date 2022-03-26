@@ -230,7 +230,6 @@ function gameEnd()
         shareLink.textContent = 'Error: ' + err
       }
     });    
-
   } else {
     // Fallback
     shareString += "\nhttps://transferl.footballgames.day";
@@ -458,10 +457,31 @@ function loadGameState()
   }
 
   shareLink    = document.getElementById("share-link");
-  shareLink.onclick = function(){
-    copyStringToClipboard (shareString);
-    alert("Your score was copied to the clipboard.\nYou can paste it in your apps!");
-  };
+
+  if (navigator && navigator.share) {
+    // Web Share API is supported
+    
+    // Share must be triggered by "user activation"
+    var shareData = {    
+      text: shareString  ,
+      url: "https://transferl.footballgames.day"
+    };
+    shareLink.addEventListener('click', async () => {
+      try {
+        await navigator.share(shareData)
+        shareLink.textContent = 'MDN shared successfully'
+      } catch(err) {
+        shareLink.textContent = 'Error: ' + err
+      }
+    });    
+  } else {
+    // Fallback
+    shareString += "\nhttps://transferl.footballgames.day";
+    shareLink.onclick = function(){
+      copyStringToClipboard (shareString);
+      alert("Your score was copied to the clipboard.\nYou can paste it in your apps!");
+    };    
+  }
 
   console.log("DONE");
 }
