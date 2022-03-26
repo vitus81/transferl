@@ -7,8 +7,8 @@ const lostColor      = "lightgray";
 const hintBgColor    = "#a6cfc1";
 
 // Time definitioms
-var startDay   = 25;
-var startMonth = 3-1; // month starts with 0 --> subtract 1!
+var startDay   = 26;          // TBD: switch to launch day
+var startMonth = 3-1;         // month starts with 0 --> subtract 1!
 var startYear  = 2022;
 var UPDATE_RATE = 900;        // TBD: switch to 86400
 var fileName = "lstBeta.csv"; // TBD: switch to lts.csv
@@ -58,6 +58,11 @@ var guessHistory = new Array(6);
 // Initialize the solution for today
 var todayRow = getTodaysRow();
 gameId.textContent = "#" + String(todayRow) + " " + gameId.textContent;
+
+if (todayRow < 0)
+{  
+  window.location.replace("comingsoon.html");
+}
 
 // Initialize status variables
 var attempts  = 0;
@@ -111,7 +116,7 @@ function getTodaysRow()
   console.log(Math.floor(delta/UPDATE_RATE));
   
   todayRow = (Math.floor(delta/UPDATE_RATE)) + 1;
-  //todayRow = 0;
+  //todayRow = 0; // only for tests
   
   return todayRow;
 }
