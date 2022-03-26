@@ -216,7 +216,20 @@ function gameEnd()
 
   if (navigator.share) {
     // Web Share API is supported
-    alert("supported");
+    
+    // Share must be triggered by "user activation"
+    var shareData = {    
+      text: shareString   
+    };
+    shareLink.addEventListener('click', async () => {
+      try {
+        await navigator.share(shareData)
+        shareLink.textContent = 'MDN shared successfully'
+      } catch(err) {
+        shareLink.textContent = 'Error: ' + err
+      }
+    });    
+
   } else {
     // Fallback
     shareLink.onclick = function(){
