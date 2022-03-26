@@ -373,7 +373,6 @@ function setHint1()
   hintCont1 = document.getElementById("hint1-content");
   $("#hint1-container").css('visibility','visible');
   hint1.classList.add('fade');
-  hint1.style.backgroundColor = hintBgColor;
   hintCont1.textContent = dat.pos;
 }
 
@@ -383,7 +382,6 @@ function setHint2()
   hintCont2 = document.getElementById("hint2-content");  
   $("#hint2-container").css('visibility','visible');
   hint2.classList.add('fade');
-  hint2.style.backgroundColor = hintBgColor;
   hintCont2.textContent = dat.letters;
 }
 
@@ -394,7 +392,6 @@ function setHint3()
   hintIcon3 = document.getElementById("hint3-icon");
   $("#hint3-container").css('visibility','visible');
   hint3.classList.add('fade');  
-  hint3.style.backgroundColor = hintBgColor;
   hintIcon3.textContent = getFlagEmoji(dat.countryCode);  
   hintCont3.textContent = dat.country;
 }
