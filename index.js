@@ -112,7 +112,7 @@ function getTodaysRow()
 {  
   var currentTimestamp = (Date.now()/1000).toFixed(0); 
   var startTimestamp = new Date(startYear, startMonth, startDay);
-  startTimestamp = (startTimestamp.getTime()/1000).toFixed(0);
+  startTimestamp = (startTimestamp.getTime()/1000).toFixed(0)-3600;
   var delta = currentTimestamp - startTimestamp;
   console.log(Math.floor(delta/UPDATE_RATE));
   
