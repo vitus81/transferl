@@ -4,7 +4,8 @@ const wonBackground  = "#329a77";
 const wonColor       = "white";
 const lostBackground = "darkgray";
 const lostColor      = "lightgray";
-
+const buttonWon      = "#F79256";
+const buttonLost     = "#485696";
 
 // Time definitioms
 var startDay   = 27;          // launch day 27.3.2022
@@ -128,6 +129,8 @@ function startGame()
   $("#game-solution").css('visibility','hidden');
   $("#game-more").css('visibility','visible');
 
+  $("#share-link").css('visibility','hidden');
+
   drawSeasons(); 
   for (i=currGuess ; i<6 ; i++) 
   {
@@ -198,7 +201,7 @@ function gameOver()
   
   $("#game-outcome").css('visibility','visible');
   gameOutcome.textContent = "GAME OVER";
-  gameOutcome.style.color = "firebrick";//lostColor;  
+  gameOutcome.style.color = "#B74F6F";//"firebrick";//lostColor;  
 
   $("#game-solution").css('visibility','visible');
   gameSolution.textContent = "The solution was " + dat.name.toUpperCase();
@@ -229,6 +232,17 @@ function gameEnd()
 
 function handleShareButton()
 {
+
+  $("#share-link").css('visibility','visible');
+  if (wonFlag)
+  {
+    $("#share-link").css('background-color',buttonWon);    
+  }
+  else
+  {
+    $("#share-link").css('background-color',buttonLost);    
+  }
+
   if (navigator && navigator.share) {
     // Web Share API is supported
     
