@@ -7,11 +7,11 @@ const lostColor      = "lightgray";
 
 
 // Time definitioms
-var startDay   = 27;          // TBD: switch to launch day 27.3.2022
+var startDay   = 27;          // launch day 27.3.2022
 var startMonth = 3-1;         // month starts with 0 --> subtract 1!
 var startYear  = 2022;
-var UPDATE_RATE = 86400;      // TBD: switch to 86400
-var fileName = "lst.csv"; // TBD: switch to lts.csv
+var UPDATE_RATE = 86400;
+var fileName = "lst.csv"; 
 
 // Get objects
 const clubContainer1 = document.getElementById("club1-container");
@@ -57,7 +57,6 @@ var guessHistory = new Array(6);
 
 // Initialize the solution for today
 var todayRow = getTodaysRow();
-//if (todayRow==0) todayRow=1; // test only
 gameId.textContent = "#" + String(todayRow) + " " + gameId.textContent;
 
 if (todayRow <= 0)
@@ -117,7 +116,7 @@ function getTodaysRow()
   console.log(Math.floor(delta/UPDATE_RATE));
   
   todayRow = (Math.floor(delta/UPDATE_RATE)) + 1;
-  //todayRow = 0; // only for tests
+  //todayRow = 1; // only for tests
   
   return todayRow;
 }

@@ -132,6 +132,7 @@ body{
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2);            
 }      
 #game-outcome {            
+    min-width: 350px;
     text-align: center;            
     font-size: 36px;                             
     font-weight: bold;
@@ -140,13 +141,15 @@ body{
     flex-grow: 1;
     flex-shrink: 0;      
 }  
-#game-solution {            
+#game-solution {   
+    min-width: 350px;         
     text-align: center;            
     font-size: 18px;                 
     width:auto; 
     height:25px; 
 }               
-#game-more {            
+#game-more {    
+    min-width: 350px;        
     text-align: center;   
     color: gray;
     font-size: 18px;
