@@ -12,6 +12,7 @@ var startDay   = 27;          // launch day 27.3.2022
 var startMonth = 3-1;         // month starts with 0 --> subtract 1!
 var startYear  = 2022;
 var UPDATE_RATE = 86400;
+
 var fileName = "lst.csv?p="+String((Date.now()/1000).toFixed(0)); 
 
 // Get objects
@@ -55,6 +56,7 @@ const gameMore     = document.getElementById("game-more");
 var shareLink    = document.getElementById("share-link");
 
 var guessHistory = new Array(6);
+var digited = 0;
 
 // Initialize the solution for today
 var todayRow = getTodaysRow();
@@ -145,35 +147,46 @@ function startGame()
 
 // --------------------------------------
 
-function checkGuess()
+function checkGuess(e)
 {
-  guessFields[0].value = replaceUmlauts(guessFields[0].value).toUpperCase().trim();
-  lastGuess = guessFields[0].value;
-  guessHistory[currGuess-1] = lastGuess;
-
-  if (lastGuess.toUpperCase()==replaceUmlauts(dat.name).toUpperCase())
+  if (e.keyCode == '13' ) // Detect Enter press (also for mobile)
   {
-    wonFlag = 1;    
-    gameWon();
+    guessFields[0].value = replaceUmlauts(guessFields[0].value).toUpperCase().trim();
+    lastGuess = guessFields[0].value;
+    guessHistory[currGuess-1] = lastGuess;
+
+    if (lastGuess.toUpperCase()==replaceUmlauts(dat.name).toUpperCase())
+    {
+      wonFlag = 1;    
+      gameWon();
+    }
+    else
+    {
+      attempts++;
+      currGuess++;
+      if (currGuess == 4) setHint1();
+      if (currGuess == 5) setHint2();
+      if (currGuess == 6) setHint3();
+      if (currGuess>6)
+      {
+        gameOver();
+      }
+      else
+      {      
+        updateFieldZero(currGuess);
+        saveGameState();
+      }
+    }
   }
   else
   {
-    attempts++;
-    currGuess++;
-    if (currGuess == 4) setHint1();
-    if (currGuess == 5) setHint2();
-    if (currGuess == 6) setHint3();
-    if (currGuess>6)
-    {
-      gameOver();
-    }
-    else
-    {      
-      updateFieldZero(currGuess);
-      saveGameState();
-    }
+    if (digited==0)
+    { 
+      guessFields[0].value="";
+      digited=1;
+      guessFields[0].style.color="black";
+    }      
   }
-
 };
 
 function gameWon()
@@ -298,20 +311,12 @@ function updateFieldZero(currGuess)
     }
   }
 
-  let digited = 0;
+  digited = 0;
   guessFields[0].style.backgroundColor="white";
   guessFields[0].style.color="lightgray";
   guessFields[0].value = "GUESS " + currGuess + " OF 6 ";
   guessFields[0].focus();  
-  guessFields[0].onkeydown = function(){
-    if (digited==0)
-    { 
-      guessFields[0].value="";
-      digited=1;
-      guessFields[0].style.color="black";
-    }
-  };
-  guessFields[0].onchange = checkGuess;  
+  guessFields[0].onkeydown = checkGuess;  
 }
 
 function getFlagEmoji(countryCode) {
