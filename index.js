@@ -12,7 +12,7 @@ var startDay   = 27;          // launch day 27.3.2022
 var startMonth = 3-1;         // month starts with 0 --> subtract 1!
 var startYear  = 2022;
 var UPDATE_RATE = 86400;
-var fileName = "lst.csv"; 
+var fileName = "lst.csv?p="+String((Date.now()/1000).toFixed(0)); 
 
 // Get objects
 const clubContainer1 = document.getElementById("club1-container");
