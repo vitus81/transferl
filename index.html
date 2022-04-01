@@ -131,8 +131,11 @@
                 <td style="text-align:right; width:125px;"><a href="mailto:transferl@footballgames.day">Contact</a>
                     <script>
                         var forFriends = (new URLSearchParams(window.location.search)).get("forFriends");
+                        var p = (new URLSearchParams(window.location.search)).get("p");
                         if (forFriends==1)
                             document.write("<a style='text-decoration:underline; color:red; cursor: pointer;' onclick='localStorage.clear()'>Reset stats</a>");
+                        if (p>0)
+                            window.location.replace("/");
                     </script>
                 </td>
             </tr>                        

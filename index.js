@@ -14,6 +14,7 @@ var startYear  = 2022;
 var UPDATE_RATE = 86400;
 
 var fileName = "lst.csv?p="+String((Date.now()/1000).toFixed(0)); 
+var parString = "";
 
 // Get objects
 const clubContainer1 = document.getElementById("club1-container");
@@ -239,7 +240,14 @@ function gameEnd()
 
   saveGameState();
   updateStats();
-  $( "#dialog-stats" ).dialog( "open" );
+
+
+  parString = String((wonFlag==1 ? currGuess : 7)*100000+todayRow);
+  console.log(parString);
+
+  window.location.replace("/?p="+parString);
+
+  
 
 }
 
@@ -482,6 +490,9 @@ function loadGameState()
   shareLink    = document.getElementById("share-link");
 
   handleShareButton();
+
+  if ((wonFlag) || (attempts==6))
+    $( "#dialog-stats" ).dialog( "open" );
 
   console.log("DONE");
 }
