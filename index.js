@@ -148,10 +148,18 @@ function startGame()
 
 // --------------------------------------
 
+function startTyping()
+{
+  if (digited==0)
+  { 
+    guessFields[0].value="";
+    digited=1;
+    guessFields[0].style.color="black";
+  }
+}
+
 function checkGuess(e)
 {
-  if (e.keyCode == '13' ) // Detect Enter press (also for mobile)
-  {
     guessFields[0].value = replaceUmlauts(guessFields[0].value).toUpperCase().trim();
     lastGuess = guessFields[0].value;
     guessHistory[currGuess-1] = lastGuess;
@@ -178,16 +186,6 @@ function checkGuess(e)
         saveGameState();
       }
     }
-  }
-  else
-  {
-    if (digited==0)
-    { 
-      guessFields[0].value="";
-      digited=1;
-      guessFields[0].style.color="black";
-    }      
-  }
 };
 
 function gameWon()
@@ -330,7 +328,8 @@ function updateFieldZero(currGuess)
   guessFields[0].style.color="lightgray";
   guessFields[0].value = "GUESS " + currGuess + " OF 6 ";
   guessFields[0].focus();  
-  guessFields[0].onkeydown = checkGuess;  
+  guessFields[0].onkeydown = startTyping;  
+  guessFields[0].onchange = checkGuess; 
 }
 
 function getFlagEmoji(countryCode) {
