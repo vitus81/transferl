@@ -254,14 +254,19 @@ function gameEnd()
 function handleShareButton()
 {
 
-  $("#share-link").css('visibility','visible');
+  $("#share-link").css('visibility','hidden');
   if (wonFlag)
   {
+    $("#share-link").css('visibility','visible');
     $("#share-link").css('background-color',buttonWon);    
   }
   else
   {
-    $("#share-link").css('background-color',buttonLost);    
+    if (attempts == 6)
+    {
+      $("#share-link").css('visibility','visible');
+      $("#share-link").css('background-color',buttonLost);    
+    }
   }
 
   if (navigator && navigator.share) {
@@ -492,7 +497,9 @@ function loadGameState()
   handleShareButton();
 
   if ((wonFlag) || (attempts==6))
+  {
     $( "#dialog-stats" ).dialog( "open" );
+  }
 
   console.log("DONE");
 }
