@@ -138,7 +138,8 @@
                         if (forFriends==1)
                             document.write("<a style='text-decoration:underline; color:red; cursor: pointer;' onclick='localStorage.clear()'>Reset stats</a>");
                         if (p>0)
-                            window.location.replace("/"); 
+                            //window.location.replace("/"); 
+                            setTimeout(function(){history.replaceState({}, "", "/")},200);
                     </script>
                 </td>
             </tr>                        
