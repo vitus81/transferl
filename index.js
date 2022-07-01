@@ -108,7 +108,6 @@ fetch(fileName)
   }
 });
 
-
 // --------------------------------------
 
 function getTodaysRow()
@@ -245,9 +244,7 @@ function gameEnd()
 
   window.location.replace("/?p="+parString);
 
-  
-
-}
+  }
 
 function handleShareButton()
 {
